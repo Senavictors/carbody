@@ -256,7 +256,7 @@ export const parts: Part[] = [
     analogy: 'Lembra o dínamo de uma bicicleta: aproveita um movimento para gerar eletricidade. No carro, essa energia atende vários equipamentos e ajuda a manter a bateria carregada.',
     signs: ['Luz de carga da bateria acesa em movimento', 'Bateria descarrega repetidamente', 'Luzes oscilam ou ficam fracas'],
     care: 'Um alerta de carga merece avaliação do sistema completo, inclusive correia e conexões. A luz com desenho de bateria não significa, por si só, que a bateria precisa ser trocada.',
-    attention: 'Atenção aos sinais', difficulty: 'Essencial', sourceIds: ['hella-alternator', 'aa-breakdowns'],
+    attention: 'Atenção aos sinais', difficulty: 'Essencial', sourceIds: ['hella-starting', 'aa-breakdowns'],
   },
   {
     id: 'starter', system: 'electrical', name: 'Motor de partida', shortName: 'Motor de partida',
@@ -390,7 +390,6 @@ export const sources: { id: string; title: string; url: string; organization: st
   { id: 'aa-breakdowns', title: 'Falhas comuns e cuidados de manutenção', url: 'https://www.theaa.com/breakdown-cover/advice/top-ten-breakdown-causes', organization: 'The AA' },
   { id: 'aa-starting', title: 'Por que um carro pode não dar partida', url: 'https://www.theaa.com/breakdown-cover/advice/starting-a-car', organization: 'The AA' },
   { id: 'hella-starting', title: 'Funcionamento do motor de partida e alternador', url: 'https://www.hella.com/techworld/au/passenger-car-parts/vehicle-electrics/starters-and-alternators/', organization: 'HELLA' },
-  { id: 'hella-alternator', title: 'Geração de energia no alternador', url: 'https://www.hella.com/forvia-us/assets/documents/BI_Alternators_2026.pdf', organization: 'HELLA' },
   { id: 'hella-cooling', title: 'Componentes e funcionamento do arrefecimento', url: 'https://www.hella.com/techworld/us/technical/car-cooling-system/engine-cooling/', organization: 'HELLA' },
   { id: 'hella-pump', title: 'Bomba de arrefecimento: função e falhas', url: 'https://www.hella.com/techworld/us/technical/car-cooling-system/defective-water-pump/', organization: 'HELLA' },
   { id: 'gates-pump', title: 'Sinais de falha da bomba d’água', url: 'https://www.gates.com/content/dam/documents-library/tech-tips-bulletins/tt005-15.pdf', organization: 'Gates' },

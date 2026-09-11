@@ -43,6 +43,8 @@ Todas as referências do catálogo são de fabricantes ou clubes automotivos. Os
 | Filtro de combustível | [MANN-FILTER: função do filtro de combustível](https://www.mann-filter.com/us-en/parts/fuel-filter.html) |
 | Bico injetor | [Bosch: função do bico injetor](https://www.bosch-mobility.com/en/solutions/valves/fuel-injector-manifold/) |
 
-Três fontes desta lista responderam 403 na abertura direta (`aa-parking-brake`, `rac-fuses`, `gates-accessory-belt`), mas seu conteúdo estava disponível na busca indexada — mesmo critério já usado para `aa-starting`. A fonte `timken-wheel-bearing` aponta para um documento técnico (PDF) da Timken, como já ocorre com `hella-alternator`.
+Três fontes desta lista responderam 403 na abertura direta (`aa-parking-brake`, `rac-fuses`, `gates-accessory-belt`), mas seu conteúdo estava disponível na busca indexada — mesmo critério já usado para `aa-starting`. A fonte `timken-wheel-bearing` aponta para um documento técnico (PDF) da Timken.
+
+**Correção (2026-09-11)**: a fonte `hella-alternator`, citada pela peça "Alternador", apontava para um arquivo de logotipo da HELLA em vez de conteúdo técnico — removida. A peça passou a citar `hella-starting` (já cadastrada, cobre partida e alternador na mesma página).
 
 O cadastro exportado mantém os links complementares. Propaganda de produto, prazos médios, rankings e percentuais das fontes não foram reproduzidos como regras universais.

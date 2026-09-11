@@ -40,6 +40,10 @@ const PINS: Pin[] = [
   { id: 'alternator', label: 'Alternador', position: [-1.97, .64, .47], offset: [-35, 45], system: 'electrical' },
   { id: 'water-pump', label: 'Bomba d’água', position: [-1.97, .63, -.39], offset: [20, 45], system: 'cooling' },
   { id: 'thermostat', label: 'Válvula termostática', position: [-1.86, .89, -.42], offset: [45, -46], system: 'cooling' },
+  { id: 'fuel-tank', label: 'Tanque de combustível', position: [1.3, .35, .34], offset: [45, 42], system: 'fuel' },
+  { id: 'fuel-pump', label: 'Bomba de combustível', position: [1.15, .47, .25], offset: [52, -32], system: 'fuel' },
+  { id: 'fuel-injector', label: 'Bico injetor', position: [-1.84, .82, .46], offset: [-52, 34], system: 'fuel' },
+  { id: 'ignition-coil', label: 'Bobina de ignição', position: [-1.84, 1.335, .1], offset: [-46, -52], system: 'electrical' },
 ];
 
 const CAMERA: Record<View, Vec> = { perspective: [-6.4, 4.5, 6.2], side: [.01, 1.45, 8.4], top: [-.01, 9, .001] };

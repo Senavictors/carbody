@@ -27,11 +27,13 @@ Ver `docs/architecture/` para a visão completa (contexto, containers, component
 
 ## Dívida técnica conhecida
 
-- Não há testes automatizados. `@playwright/test` está instalado como devDependency mas sem nenhuma configuração ou arquivo de teste — decidir se remove a dependência ou escreve os testes.
-- Bundle de produção único de ~851 kB (Three.js não é code-splitted) — `vite build` avisa sobre isso. Candidato a `dynamic import()` de `CarScene` quando a página "Explorar" for aberta.
-- Não há `README.md` na raiz com instruções de setup (`npm install && npm run dev`).
-- A fonte `hella-alternator` em `src/data/parts.ts` aponta para um PDF (`BI_Alternators_2026.pdf`) — vale confirmar periodicamente que o link continua válido.
+- Não há testes automatizados. `@playwright/test` está instalado como devDependency mas sem nenhuma configuração ou arquivo de teste — decidir se remove a dependência ou escreve os testes. Maior item de dívida ainda em aberto; por ser uma decisão arquitetural (escolher estratégia de teste), merece seu próprio `bootstrap-plan` em vez de ser resolvido ad hoc.
+- `CarScene.tsx` já é `lazy`-importado (`React.lazy`, carregado só quando a página "Explorar" abre) — o chunk isolado ainda pesa ~608 kB (aviso do `vite build`), por causa do Three.js. Considerar `manualChunks` se isso incomodar no futuro.
 - Não há pipeline de deploy/CI configurado ainda.
+
+**Resolvidos em 2026-09-11**:
+- ~~Sem `README.md` na raiz~~ — criado, com instruções de setup e mapa do projeto.
+- ~~Fonte `hella-alternator` apontava para um PDF~~ — na verdade apontava para um arquivo de logotipo da HELLA, não documentação técnica. Corrigido: a peça `alternator` agora cita `hella-starting` (fonte já existente, cobre partida e alternador). Ver `CONTENT_SOURCES.md`.
 
 ## Decisões recentes
 
