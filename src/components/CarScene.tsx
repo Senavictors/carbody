@@ -111,9 +111,9 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       else appearances.push({ mesh, material, opacity: options.opacity ?? 1, system, part });
       return mesh;
     }
-    const box = (size: Vec, position: Vec, color: string, system = '', part = '', radius = .045, options = {}) => solid(new RoundedBoxGeometry(...size, 3, Math.min(radius, Math.min(...size) / 2)), position, color, system, part, options);
+    const box = (size: Vec, position: Vec, color: string, system = '', part = '', radius = .045, options = {}) => solid(new RoundedBoxGeometry(...size, 6, Math.min(radius, Math.min(...size) / 2)), position, color, system, part, options);
     const cyl = (radius: number, length: number, position: Vec, color: string, system = '', part = '', axis: 'x' | 'y' | 'z' = 'y', options = {}) => solid(new THREE.CylinderGeometry(radius, radius, length, 32), position, color, system, part, { rotation: axis === 'z' ? [Math.PI / 2, 0, 0] as Vec : axis === 'x' ? [0, 0, Math.PI / 2] as Vec : [0, 0, 0] as Vec, ...options });
-    const torus = (radius: number, tube: number, position: Vec, color: string, system = '', part = '', options = {}) => solid(new THREE.TorusGeometry(radius, tube, 10, 48), position, color, system, part, options);
+    const torus = (radius: number, tube: number, position: Vec, color: string, system = '', part = '', options = {}) => solid(new THREE.TorusGeometry(radius, tube, 18, 48), position, color, system, part, options);
     function tube(points: Vec[], radius: number, color: string, system = '', part = '', options = {}) {
       const curve = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...p)));
       return solid(new THREE.TubeGeometry(curve, Math.max(12, points.length * 6), radius, 8, false), [0, 0, 0], color, system, part, options);
@@ -172,6 +172,11 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       }
       cyl(.076, .055, [x, .49, outer + side * .025], '#ced5d4', 'suspension', 'tire', 'z');
       cyl(.033, .06, [x, .49, outer + side * .03], '#687a80', 'suspension', 'tire', 'z');
+      // Lug bolts, offset from the spokes so they read as a separate ring on the hub face.
+      for (let i = 0; i < 5; i++) {
+        const a = i * Math.PI * 2 / 5 + Math.PI / 5;
+        cyl(.013, .022, [x + Math.sin(a) * .1, .49 + Math.cos(a) * .1, outer + side * .033], '#4d5555', 'suspension', '', 'z');
+      }
       const discZ = z - side * .145;
       cyl(.256, .035, [x, .49, discZ], '#c0c7c7', 'brakes', 'brake-disc', 'z', { metalness: .83, roughness: .3 });
       torus(.224, .009, [x, .49, discZ + side * .022], '#8f9b9e', 'brakes', 'brake-disc');
@@ -212,6 +217,8 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     }
     cyl(.055, .045, [-1.17, 1.176, -.18], '#394748', 'engine', 'oil-filter');
     cyl(.075, .16, [-1.83, .57, .37], '#ded7c8', 'engine', 'oil-filter', 'y');
+    // A small breather hose off the valve cover — a generic, decorative accessory line.
+    tube([[-1.32, 1.16, .16], [-1.16, 1.04, .2], [-1.04, .89, .17]], .012, '#3a4444', 'engine');
     // Two timing pulleys joined by a continuous belt, deliberately exposed for teaching.
     for (const [x, y, r] of [[-1.75, .96, .13], [-1.4, .65, .105]]) {
       cyl(r, .04, [x, y, .445], '#667b80', 'engine', 'timing-belt', 'z');
