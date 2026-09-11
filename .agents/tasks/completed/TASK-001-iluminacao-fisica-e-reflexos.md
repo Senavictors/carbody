@@ -114,7 +114,7 @@ Risco principal: AO mal calibrado deixa o motor escuro demais, ou o `envMap` dei
 - Nenhuma divergência de comportamento em relação ao que o ADR/task pediam. A única divergência foi a de tipos do `@types/three` descrita acima, resolvida sem mudar o resultado.
 
 ### Pendências
-- CA-06 (ausência de vazamento de memória de GPU) foi coberto por revisão de código, não por medição em DevTools ao longo de várias montagens/desmontagens do componente — recomendo que isso seja checado manualmente (abrir "Explorar" → navegar para outra página → voltar, repetidas vezes, observando `chrome://gpu`/aba Memory do DevTools) antes de considerar a task pronta para `bootstrap-complete`.
+- ~~CA-06 (ausência de vazamento de memória de GPU) foi coberto por revisão de código, não por medição em DevTools~~ — **confirmado pelo usuário em 2026-09-11**, rodando `npm run dev` localmente: "já rodei, tá funcionando bem". Sem relato de degradação de memória/performance.
 - Nenhuma calibração fina adicional de AO/exposição foi pedida pelo usuário além da revisão visual feita nesta sessão — se o resultado não agradar em uso prolongado, ajustar `gtaoPass.blendIntensity` e os parâmetros de `updateGtaoMaterial` é a primeira coisa a tentar (ambos isolados no bloco de código descrito acima).
 
 ## Validação

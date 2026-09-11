@@ -116,8 +116,8 @@ Risco principal: mais segmentos/peças aumentam a contagem de triângulos e o n�
 Nenhuma em relação ao pedido da task.
 
 ### Pendências
-- CA-02 (parafusos visíveis) foi confirmado por revisão do código (a matemática de posicionamento espelha o padrão dos raios, que renderizam corretamente), mas **não por inspeção pixel a pixel** — a ferramenta de captura de tela usada nesta sessão não suporta zoom/crop de região, e o zoom máximo da câmera (`orbit.maxZoom = 1.75`, limite já existente e deliberado do produto) deixa os parafusos pequenos na captura de tela disponível. Recomendo conferir visualmente em uma tela real (não só via automação) antes de considerar a task pronta para `bootstrap-complete`.
-- Assim como na `TASK-001`, não foi feito profiling de memória/FPS com ferramenta dedicada (o projeto não tem uma) — a fluidez foi avaliada apenas por interação manual qualitativa.
+- ~~CA-02 (parafusos visíveis) foi confirmado por revisão do código..., mas não por inspeção pixel a pixel~~ — **confirmado pelo usuário em 2026-09-11**, rodando `npm run dev` localmente numa tela real: "já rodei, tá funcionando bem".
+- Assim como na `TASK-001`, não foi feito profiling de memória/FPS com ferramenta dedicada (o projeto não tem uma) — a fluidez foi avaliada apenas por interação manual qualitativa, também confirmada pelo usuário na checagem local acima.
 
 ## Validação
 
