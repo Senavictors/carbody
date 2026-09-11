@@ -145,8 +145,8 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     box([.78, .15, 1.63], [1.78, .49, 0], '#9caaad', '', '', .035);
     box([1.22, .1, .24], [.43, .52, 0], '#9cabad', 'transmission', 'gearbox');
     // Exhaust: warm steel, muffler and a visible tailpipe.
-    tube([[-1.5, .5, -.3], [-1, .3, -.29], [-.4, .28, -.16], [.6, .28, -.23], [1.75, .3, -.32], [2.57, .33, -.46]], .047, '#a29885');
-    box([.74, .2, .4], [1.58, .29, -.35], '#b6b3a9', '', '', .1);
+    tube([[-1.5, .5, -.3], [-1, .3, -.29], [-.4, .28, -.16], [.6, .28, -.23], [1.75, .3, -.32], [2.57, .33, -.46]], .047, '#a29885', 'engine', 'exhaust');
+    box([.74, .2, .4], [1.58, .29, -.35], '#b6b3a9', 'engine', 'exhaust', .1);
 
     // Four complete wheels, each with a tread crown, sidewalls, spokes, hub and ventilated disc.
     for (const x of [-1.68, 1.68]) for (const side of [-1, 1]) {
@@ -284,7 +284,7 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     box([.13, .49, 1.34], [1.47, 1, 0], '#a8b9b9', '', '', .06);
     for (const z of [-.46, .46]) box([.12, .14, .3], [1.5, 1.33, z], '#839c9f', '', '', .045);
     box([.56, .23, .17], [.1, .6, 0], '#778f93', '', '', .035);
-    const steering = torus(.17, .018, [-.4, 1.18, .47], '#455e63', '', '', { rotation: [0, Math.PI / 2 - .5, 0] });
+    const steering = torus(.17, .018, [-.4, 1.18, .47], '#455e63', 'suspension', 'steering', { rotation: [0, Math.PI / 2 - .5, 0] });
     tube([[-.43, 1.17, .47], [-.71, .99, .47]], .03, '#849b9e');
     for (let i = 0; i < 3; i++) {
       const a = i * Math.PI * 2 / 3;
