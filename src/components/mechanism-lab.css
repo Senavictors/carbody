@@ -1,0 +1,72 @@
+.mechanism-lab{--ml-ink:#1d2d43;--ml-muted:#647183;--ml-line:#e3e7ec;--ml-accent:#c9532a;color:var(--ml-ink);width:100%;max-width:1180px;margin:0 auto;padding:42px 0 30px;font-family:'DM Sans',sans-serif}
+.ml-intro{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:30px}
+.ml-intro h2{font-family:Manrope,sans-serif;font-size:clamp(26px,3vw,35px);font-weight:650;letter-spacing:-.035em;line-height:1.25;margin:0 0 9px;text-wrap:balance}
+.ml-intro p{font-size:15px;color:var(--ml-muted);margin:0;line-height:1.5}
+.ml-tabs{display:flex;align-items:center;gap:4px;padding:5px;border:1px solid var(--ml-line);border-radius:11px;background:#f1f3f6;flex-shrink:0}
+.mechanism-lab button{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ml-tabs button{border:0;border-radius:7px;padding:10px 15px;background:transparent;color:#637183;font-size:13px;font-weight:600;white-space:nowrap;transition:background .18s,color .18s}
+.ml-tabs button[aria-selected=true]{background:#fff;color:var(--ml-ink)}
+.ml-tabs button:hover{color:var(--ml-ink)}
+.mechanism-lab button:focus-visible{outline:3px solid #476d91;outline-offset:4px}
+.ml-workbench{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(290px,1fr);border:1px solid var(--ml-line);border-radius:13px;overflow:hidden;background:#fff}
+.ml-visual{min-width:0;background:#f8f9fb;display:flex;flex-direction:column}
+.ml-visual-header{display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:12px;color:#546376;padding:23px 25px 0;font-weight:500}
+.ml-simple-note{font-size:10px;color:#657284;font-weight:400}
+.ml-diagram{flex:1;display:flex;align-items:center;justify-content:center;min-height:330px;padding:10px 0 0}
+.ml-diagram svg{display:block;width:100%;height:auto;max-height:465px;overflow:visible}
+.ml-svg-label{font-family:'DM Sans',sans-serif;fill:#536478;font-size:13px;font-weight:500}
+.ml-svg-caption{font-family:'DM Sans',sans-serif;fill:#687687;font-size:11px}
+.ml-svg-gear-title{fill:#1d2d43;font-size:15px;font-weight:650}
+.ml-leader{fill:none;stroke:#a5b1bf;stroke-width:1}
+.ml-flow{fill:none;stroke:currentColor;stroke-width:1.6}
+.ml-flow-intake{color:#fff}
+.ml-flow-exhaust{color:#fff}
+.ml-playback{border-top:1px solid var(--ml-line);padding:18px 24px;display:flex;align-items:center;flex-wrap:wrap;gap:14px;min-height:74px}
+.ml-play-button{border:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:40px;padding:11px 16px;border-radius:7px;background:var(--ml-ink);color:#fff;font-size:12px;font-weight:550}
+.ml-play-button:hover{background:#31485f}
+.ml-play-button:disabled{background:#e3e7ec;color:#637083;cursor:default}
+.ml-play-button svg{width:13px}
+.ml-reset{background:none;border:0;padding:10px 0;display:inline-flex;align-items:center;gap:7px;color:#647183;font-size:11px}
+.ml-reset:hover{color:#1d2d43}
+.ml-playback-hint{font-size:10px;color:#6b7786;margin-left:auto;max-width:144px;line-height:1.5}
+.ml-explanation{padding:30px 30px 24px;border-left:1px solid var(--ml-line);display:flex;flex-direction:column;align-items:stretch;min-width:0}
+.ml-stroke-tabs{display:flex;align-items:flex-start;gap:0;padding:0 0 26px;margin-bottom:27px;border-bottom:1px solid var(--ml-line)}
+.ml-stroke-tabs button{padding:0 5px;flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:10px;color:#677486;font-size:10px;line-height:1.4}
+.ml-step-number{width:30px;height:30px;border:1px solid #dce2e8;color:#718093;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums;position:relative}
+.ml-stroke-tabs button[aria-pressed=true]{color:#ae4927;font-weight:600}
+.ml-stroke-tabs button[aria-pressed=true] .ml-step-number{background:#fbeae2;border-color:#edbfa9;color:#ae4927}
+.ml-stroke-tabs button:hover .ml-step-number{border-color:#c57b59}
+.ml-lesson-copy h3,.ml-ratio-heading{font-family:Manrope,sans-serif;font-size:23px;font-weight:650;letter-spacing:-.025em;line-height:1.4;margin:0 0 14px;text-wrap:balance}
+.ml-lesson-copy p{font-size:14px;line-height:1.8;margin:0;color:#576579;max-width:70ch}
+.ml-mechanics-state{display:flex;flex-direction:column;gap:9px;padding:20px 0;color:#485d72;font-size:11px}
+.ml-mechanics-state span:first-child{display:flex;align-items:center;gap:7px;font-weight:600;font-size:12px}
+.ml-mechanics-state span:last-child{margin-left:24px}
+.ml-lesson-copy .ml-analogy,.ml-analogy{font-size:12px;line-height:1.8;color:#697485;margin:4px 0 22px}
+.ml-next-step{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:13px;color:var(--ml-accent);background:none;border:0;padding:12px 0;font-weight:650;font-size:12px}
+.ml-next-step:hover{color:#963d20}
+.ml-footnote{padding-top:17px;border-top:1px solid var(--ml-line);font-size:10px;line-height:1.7;color:#687486;margin:13px 0 0}
+.ml-ratio-heading{font-size:22px;margin-bottom:8px}
+.ml-ratio-intro{margin:0 0 20px;font-size:12px;line-height:1.7;color:#647183}
+.ml-ratio-options{display:flex;gap:7px;margin-bottom:28px}
+.ml-ratio-options button{min-width:0;flex:1;border:1px solid #dfe4eb;border-radius:7px;background:#fff;padding:10px 5px;color:#526074;display:flex;flex-direction:column;gap:8px;align-items:center;font-size:10px;font-weight:600}
+.ml-ratio-options button span:last-child{display:flex;align-items:center;justify-content:center;gap:3px;font-size:9px;white-space:nowrap;font-weight:400}
+.ml-ratio-options button[aria-pressed=true]{color:#a74524;background:#fff4ee;border-color:#edbda8}
+.ml-ratio-options button:hover{border-color:#c78f74}
+.ml-gear-copy h3{font-size:21px;max-width:260px}
+.ml-gear-copy p{font-size:13px}
+.ml-turns{display:flex;align-items:center;gap:21px;padding:21px 0 22px;font-size:10px;color:#677385}
+.ml-turns span{display:flex;flex-direction:column;gap:4px}
+.ml-turns strong{color:#1d2d43;font-family:Manrope,sans-serif;font-size:19px;font-weight:650;font-variant-numeric:tabular-nums}
+.ml-turns span:last-child strong{color:#bc5029}
+.ml-turns>svg{color:#9aa7b4}
+.mechanism-lab ::selection{background:#f5cfbc;color:#1d2d43}
+@media(min-width:1100px){.ml-explanation{padding:31px 34px 25px}.ml-diagram{min-height:410px}}
+@media(max-width:900px){.ml-intro{align-items:flex-start;flex-direction:column;gap:21px}.ml-workbench{grid-template-columns:minmax(0,1.25fr) minmax(285px,1fr)}.ml-explanation{padding:24px 20px 22px}.ml-visual-header{flex-direction:column;align-items:flex-start;gap:5px;padding:22px 20px 0}.ml-playback{padding:15px 18px;gap:13px}.ml-playback-hint{display:none}.ml-lesson-copy h3{font-size:21px}.ml-stroke-tabs button{font-size:9px}}
+@media(max-width:700px){.mechanism-lab{padding-top:25px}.ml-intro{margin-bottom:23px}.ml-intro p{font-size:13px}.ml-tabs{width:100%}.ml-tabs button{flex:1;padding:11px 8px;font-size:12px}.ml-workbench{grid-template-columns:1fr}.ml-visual-header{flex-direction:row;align-items:center;font-size:11px}.ml-simple-note{font-size:9px}.ml-diagram{min-height:270px;padding-top:7px}.ml-diagram svg{max-height:350px}.ml-playback{justify-content:center;gap:25px}.ml-explanation{border-left:0;border-top:1px solid var(--ml-line);padding:26px 23px 22px}.ml-stroke-tabs{margin-bottom:23px;padding-bottom:22px}.ml-stroke-tabs button{font-size:11px}.ml-lesson-copy p{font-size:14px}.ml-lesson-copy h3{font-size:23px}.ml-next-step{margin-top:5px}.ml-ratio-options button{font-size:12px;padding:13px 5px}.ml-ratio-options button span:last-child{font-size:10px}.ml-gear-copy h3{max-width:100%;font-size:23px}.ml-turns{gap:30px}.ml-footnote{font-size:11px}.ml-playback-hint{display:block;max-width:none;margin-left:0;text-align:center;width:100%}}
+@media(max-width:370px){.ml-visual-header{align-items:flex-start;flex-direction:column}.ml-tabs button{font-size:11px}.ml-explanation{padding:23px 16px}.ml-stroke-tabs button{font-size:10px}.ml-ratio-options{gap:5px}.ml-ratio-options button{font-size:10px}.ml-playback-hint{display:none}}
+@media(prefers-reduced-motion:reduce){.mechanism-lab *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.mechanism-lab { padding-top: 12px; }
+.ml-intro h2 { font-size: 20px; letter-spacing: -.02em; }
+.ml-intro p { font-size: 13px; }
+@media (max-width: 700px) { .ml-svg-label { font-size: 19px; } .ml-svg-caption { font-size: 15px; } .ml-svg-gear-title { font-size: 21px; } }
