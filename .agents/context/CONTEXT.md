@@ -8,7 +8,11 @@ Carbody (marca visível no app: "carbody.") é uma SPA em React 19 + TypeScript 
 
 ## Iniciativas ativas
 
-- **Realismo do modelo 3D** (`ADR-002`): `TASK-001` (iluminação física — PMREM + AO) e `TASK-002` (mais detalhe geométrico — segmentos, parafusos, mangueira) concluídas via `bootstrap-complete`, movidas para `.agents/tasks/completed/`, e confirmadas visualmente pelo usuário rodando `npm run dev` localmente ("já rodei, tá funcionando bem") — sem pendências abertas.
+- **Realismo do modelo 3D** (`ADR-002`): `TASK-001` e `TASK-002` concluídas — ver `.agents/tasks/completed/`.
+- **Expansão do catálogo de peças** (`ADR-003`, 2026-09-11): 15 peças novas + um 7º sistema ("Combustível"), organizadas em duas trilhas paralelas por papel, todas em `.agents/tasks/backlog/`, nenhuma iniciada ainda:
+  - Trilha conteúdo (`content-catalog`): `TASK-003` (escape/direção — peças já modeladas em 3D), `TASK-004` (9 peças que completam sistemas existentes), `TASK-005` (sistema de combustível novo — `SystemId`, `systems`, `systemIcons`).
+  - Trilha geometria (`three-scene`): `TASK-006`, `TASK-007`, `TASK-008` (pares exatos das três de conteúdo, mesma ordem).
+  - Ids de todas as peças novas fixados na tabela do `ADR-003` — qualquer implementação deve usá-los exatamente, para as duas trilhas convergirem sem peça órfã.
 
 ## Arquitetura vigente
 
