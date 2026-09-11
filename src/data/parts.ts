@@ -68,6 +68,16 @@ export const parts: Part[] = [
     attention: 'Manutenção preventiva', difficulty: 'Essencial', sourceIds: ['mann-filter', 'aaa-warnings'],
   },
   {
+    id: 'exhaust', system: 'engine', name: 'Sistema de escape', shortName: 'Escape',
+    summary: 'Depois da combustão, os gases ainda precisam sair do motor com segurança. O sistema de escape conduz esses gases para fora, trata parte deles e reduz o ruído do motor.',
+    function: 'Conduz os gases da combustão para fora do motor, reduz substâncias nocivas antes de liberá-las e diminui o ruído gerado pelo funcionamento do motor.',
+    how: 'Os gases saem pelo coletor de escape e percorrem tubos até o conjunto conversor catalítico e silencioso. O catalisador ajuda a transformar parte dos gases em substâncias menos nocivas; o silencioso reduz o ruído antes da saída pelo tubo traseiro.',
+    analogy: 'Pense na chaminé e no duto de exaustão de um ambiente fechado: eles precisam retirar os gases gerados internamente para fora, sem deixar que voltem para dentro.',
+    signs: ['Ruído incomum ou mais alto que o habitual', 'Cheiro de gases dentro do carro', 'Alerta de emissões no painel'],
+    care: 'Peça inspeção do sistema (furos, corrosão, fixações) nas revisões. Ruído novo, cheiro de gases dentro do carro ou alerta no painel merecem avaliação; nenhum desses sinais, isolado, aponta uma peça específica.',
+    attention: 'Atenção aos sinais', difficulty: 'Essencial', sourceIds: ['walker-exhaust'],
+  },
+  {
     id: 'clutch', system: 'transmission', name: 'Embreagem', shortName: 'Embreagem',
     summary: 'No carro manual, a embreagem faz a ligação gradual entre motor e câmbio. Ela permite sair com suavidade, trocar marchas e parar mantendo o motor ligado.',
     function: 'Conecta e desconecta a transmissão do movimento do motor. O controle dessa ligação permite arrancadas progressivas e reduz o esforço durante a troca de marchas.',
@@ -156,6 +166,16 @@ export const parts: Part[] = [
     signs: ['Desgaste irregular ou indicador atingido', 'Perda recorrente de pressão', 'Bolhas, cortes ou deformações'],
     care: 'Confira a pressão a frio indicada pelo fabricante e observe o estado dos pneus. Bolhas, cortes e perda de pressão pedem avaliação; o desenho sozinho não revela toda a condição.',
     attention: 'Desgaste natural', difficulty: 'Essencial', sourceIds: ['michelin-wear', 'michelin-tread', 'aa-breakdowns'],
+  },
+  {
+    id: 'steering', system: 'suspension', name: 'Direção', shortName: 'Direção',
+    summary: 'O volante é só a parte visível. Coluna e caixa de direção completam o sistema que transforma o giro do volante no esterçamento das rodas dianteiras.',
+    function: 'Transmite o movimento do volante até as rodas dianteiras, permitindo mudar a direção do carro. Em quase todo carro atual, um sistema de assistência (hidráulica ou elétrica) reduz o esforço do motorista.',
+    how: 'O volante gira a coluna de direção, que aciona a caixa de direção (geralmente por pinhão e cremalheira). O movimento da cremalheira é transmitido pelas barras de direção até as rodas, que esterçam.',
+    analogy: 'É parecido com o guidão de uma bicicleta ligado ao garfo dianteiro, mas com uma redução mecânica no meio do caminho: um giro pequeno no volante produz um esterçamento proporcional nas rodas.',
+    signs: ['Direção mais pesada que o habitual', 'Ruído ao esterçar', 'Folga perceptível no volante'],
+    care: 'Inclua a direção nas revisões, incluindo o nível de fluido quando o sistema for hidráulico. Peso incomum, ruído ou folga no volante merecem avaliação; qualquer um desses sinais, isolado, não indica qual componente está envolvido.',
+    attention: 'Atenção aos sinais', difficulty: 'Essencial', sourceIds: ['zf-chassis-parts'],
   },
   {
     id: 'battery', system: 'electrical', name: 'Bateria de 12 volts', shortName: 'Bateria',
@@ -247,4 +267,6 @@ export const sources: { id: string; title: string; url: string; organization: st
   { id: 'varta-battery', title: 'Como a bateria armazena e fornece energia', url: 'https://www.varta-automotive.com/apac/varta-battery-support/battery-basics/how-does-a-battery-work', organization: 'VARTA' },
   { id: 'nakata-joints', title: 'Sinais de desgaste e cuidados com a homocinética', url: 'https://www.nakata.com.br/sala-de-imprensa/indicios-de-que-a-junta-homocinetica-pode-estar-comprometida', organization: 'Nakata' },
   { id: 'aaa-warnings', title: 'Alertas de pressão do óleo e superaquecimento', url: 'https://cluballiance.aaa.com/the-extra-mile/series/the-extra-mile-magazine/a-warning-light-road-map', organization: 'AAA Club Alliance' },
+  { id: 'walker-exhaust', title: 'Componentes do sistema de escape', url: 'https://www.walkerexhaust.com/support/exhaust-101/what-parts-make-up-the-exhaust-system.html', organization: 'Walker Exhaust Systems' },
+  { id: 'zf-chassis-parts', title: 'Peças de direção e chassi', url: 'https://aftermarket.zf.com/en/aftermarket-portal/our-portfolio/passenger-cars/products/steering-chassis-parts/', organization: 'ZF Aftermarket' },
 ];

@@ -28,5 +28,7 @@ Todas as referências do catálogo são de fabricantes ou clubes automotivos. Os
 | Elétrica | [VARTA: bateria](https://www.varta-automotive.com/apac/varta-battery-support/battery-basics/how-does-a-battery-work), [HELLA: partida e carga](https://www.hella.com/techworld/au/passenger-car-parts/vehicle-electrics/starters-and-alternators/) |
 | Arrefecimento | [HELLA: circuito](https://www.hella.com/techworld/us/technical/car-cooling-system/engine-cooling/), [HELLA: bomba](https://www.hella.com/techworld/us/technical/car-cooling-system/defective-water-pump/), [HELLA: válvula termostática](https://www.hella.com/techworld/us/passenger-car-parts/vehicle-electrics/coolant-thermostats/) |
 | Alertas e contexto de manutenção | [AAA: luzes do painel](https://cluballiance.aaa.com/the-extra-mile/series/the-extra-mile-magazine/a-warning-light-road-map), [The AA: falhas comuns](https://www.theaa.com/breakdown-cover/advice/top-ten-breakdown-causes) |
+| Sistema de escape | [Walker: componentes do sistema de escape](https://www.walkerexhaust.com/support/exhaust-101/what-parts-make-up-the-exhaust-system.html) |
+| Direção | [ZF Aftermarket: peças de direção e chassi](https://aftermarket.zf.com/en/aftermarket-portal/our-portfolio/passenger-cars/products/steering-chassis-parts/) |
 
 O cadastro exportado mantém os links complementares. Propaganda de produto, prazos médios, rankings e percentuais das fontes não foram reproduzidos como regras universais.

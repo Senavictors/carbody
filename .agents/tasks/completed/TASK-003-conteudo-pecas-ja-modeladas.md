@@ -1,9 +1,9 @@
 ---
 id: TASK-003
 title: "Conteúdo: sistema de escape e direção (peças já modeladas em 3D)"
-status: backlog
+status: completed
 type: feature
-owner:
+owner: content-catalog (subagent)
 created_at: 2026-09-11
 updated_at: 2026-09-11
 affected_modules: [content-catalog]
@@ -49,11 +49,11 @@ Duas novas entradas em `parts`, seguindo exatamente a `interface Part` já exist
 
 ## Critérios de aceitação
 
-- [ ] CA-01: `parts` tem uma entrada `exhaust` e uma `steering`, com todos os campos da interface `Part` preenchidos.
-- [ ] CA-02: cada uma tem pelo menos um `sourceIds` apontando para uma fonte real, nova em `sources` ou uma já existente que se aplique.
-- [ ] CA-03: toda fonte nova em `sources` tem entrada correspondente na tabela de `CONTENT_SOURCES.md`.
-- [ ] CA-04: `npm run build` passa sem erros.
-- [ ] CA-05: nenhuma peça existente foi alterada.
+- [x] CA-01: `parts` tem uma entrada `exhaust` e uma `steering`, com todos os campos da interface `Part` preenchidos.
+- [x] CA-02: cada uma tem pelo menos um `sourceIds` apontando para uma fonte real, nova em `sources` ou uma já existente que se aplique.
+- [x] CA-03: toda fonte nova em `sources` tem entrada correspondente na tabela de `CONTENT_SOURCES.md`.
+- [x] CA-04: `npm run build` passa sem erros.
+- [x] CA-05: nenhuma peça existente foi alterada.
 
 ## Impacto técnico
 
@@ -65,10 +65,10 @@ Não se aplica.
 
 ## Plano de implementação
 
-- [ ] Etapa 1: pesquisar fontes reais para sistema de escape/catalisador e para sistemas de direção (fabricantes como Bosal, Walker, ZF, TRW, ou clubes automotivos já usados no projeto como The AA).
-- [ ] Etapa 2: escrever as duas entradas em `parts`, seguindo o tom editorial já estabelecido (ver `engine` ou `cv-joint` como referência de estrutura e nível de detalhe).
-- [ ] Etapa 3: adicionar as fontes novas a `sources` e à tabela de `CONTENT_SOURCES.md`.
-- [ ] Etapa 4: `npm run build` para confirmar que o typecheck aceita as novas entradas.
+- [x] Etapa 1: pesquisar fontes reais para sistema de escape/catalisador e para sistemas de direção (fabricantes como Bosal, Walker, ZF, TRW, ou clubes automotivos já usados no projeto como The AA).
+- [x] Etapa 2: escrever as duas entradas em `parts`, seguindo o tom editorial já estabelecido (ver `engine` ou `cv-joint` como referência de estrutura e nível de detalhe).
+- [x] Etapa 3: adicionar as fontes novas a `sources` e à tabela de `CONTENT_SOURCES.md`.
+- [x] Etapa 4: `npm run build` para confirmar que o typecheck aceita as novas entradas.
 
 ## Estratégia de testes
 
@@ -81,13 +81,27 @@ Risco: não encontrar fonte real específica o suficiente para "sistema de escap
 
 ## Registro de execução
 ### Alterações realizadas
+Adicionadas duas entradas em `parts`: `exhaust` (sistema `engine`, cobre coletor, catalisador e silencioso como um conjunto) e `steering` (sistema `suspension`, cobre volante, coluna e caixa de direção conceitualmente). Adicionadas duas fontes novas em `sources`: `walker-exhaust` (Walker Exhaust Systems) e `zf-chassis-parts` (ZF Aftermarket). `zf-chassis-parts` também será reutilizada em TASK-004 para `sway-bar`, já que a mesma página cobre peças de chassi/estabilizador da ZF.
+
 ### Arquivos principais
+- `src/data/parts.ts` (2 entradas em `parts`, 2 entradas em `sources`)
+- `CONTENT_SOURCES.md` (2 linhas novas na tabela de fontes)
+
 ### Decisões
+- Fonte de "sistema de escape genérico" (Walker) confirmada por fetch direto (200 OK) — página cobre função do sistema completo, do silencioso e do catalisador, o que evitou precisar de uma segunda fonte separada para o catalisador (conforme "Fora de escopo" da task).
+- Fonte de "direção" usou ZF Aftermarket (página de peças de direção e chassi) em vez de um fabricante de caixa de direção isolado (ex.: TRW específico), porque a página cobre o sistema de direção e chassi de forma mais genérica, compatível com o recorte didático do projeto (sem implicar um sistema específico de marca).
+- `attention: 'Atenção aos sinais'` escolhido para as duas peças (em vez de `'Desgaste natural'`) porque os sinais listados (ruído, cheiro, folga, peso incomum) pedem avaliação e não são um desgaste linear e previsível como pastilha/pneu/bateria.
+
 ### Divergências
+Nenhuma peça exigiu desvio do plano original da task.
+
 ### Pendências
+Nenhuma. As duas entradas estão completas e a geometria correspondente (`TASK-006`) já está marcada como completed pela trilha paralela (`three-scene`), conforme observado em `.agents/tasks/completed/` no início desta task.
 
 ## Validação
-Comandos e resultados.
+- `npx tsc -b --noEmit`: sem erros.
+- `npm run build`: build de produção concluído sem erros (apenas o aviso pré-existente de chunk grande do Three.js, não relacionado a esta mudança).
+- Não foi feita verificação visual no navegador (fora do escopo desta task de conteúdo, e o outro subagente pode estar usando a porta de dev server).
 
 ## Handoff
-Link para o handoff ativo, quando aplicável.
+Não aplicável — task concluída nesta sessão.
