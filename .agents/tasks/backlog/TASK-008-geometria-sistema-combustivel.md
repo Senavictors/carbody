@@ -30,8 +30,8 @@ Modelar `fuel-tank`, `fuel-pump`, `fuel-filter`, `fuel-injector`, todas com `sys
 
 - **`fuel-tank`**: um volume na traseira do carro (área ainda livre no chassi, próxima ao eixo traseiro — ver as posições de roda traseira `x=1.68` e o chassi longitudinal, linha ~140-141), formato de caixa achatada.
 - **`fuel-pump`**: pequeno componente cilíndrico dentro ou junto ao tanque.
-- **`fuel-filter`**: um cilindro pequeno na linha de combustível entre o tanque e o motor — usar `tube()` para a linha e `cyl()` para o corpo do filtro, mesmo padrão já usado nas mangueiras de arrefecimento (linha ~244-246).
-- **`fuel-injector`**: pequenos componentes junto ao coletor de admissão do motor (perto de onde `air-filter`, de `TASK-007`, for modelado) — um por cilindro (4, seguindo o padrão de 4 cilindros já usado para velas, linha ~204) ou um bloco representando o conjunto, a decidir na implementação conforme o resultado visual.
+- **`fuel-filter`**: um cilindro pequeno na linha de combustível entre o tanque e o motor — usar `tube()` para a linha e `cyl()` para o corpo do filtro, mesmo padrão já usado nas mangueiras de arrefecimento (`CarScene.tsx:257-259`).
+- **`fuel-injector`**: pequenos componentes junto ao coletor de admissão do motor (perto de onde `air-filter`, de `TASK-007`, for modelado) — um por cilindro (4, seguindo o padrão de 4 cilindros já usado para velas, loop em `CarScene.tsx:209-217`) ou um bloco representando o conjunto, a decidir na implementação conforme o resultado visual.
 
 Todas usam os helpers já existentes, com `system: 'fuel'` e `part` igual ao id de `TASK-005`.
 

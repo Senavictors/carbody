@@ -23,15 +23,15 @@ Modelar as 9 peças, cada uma com `userData.part` igual ao id fixado em `ADR-003
 
 | id (igual a `TASK-004`) | Sistema | Âncora de posição sugerida (coordenadas já existentes próximas) |
 |---|---|---|
-| `air-filter` | `engine` | Perto do bloco do motor (`CarScene.tsx:205-212`, x ≈ -1.8 a -1.5, y ≈ .9-1.1) — uma caixa achatada representando a caixa do filtro de ar, no lado de admissão. |
-| `accessory-belt` | `engine` | Entre a polia do virabrequim (região do bloco do motor) e o alternador (`[-1.99, .64, .4]`, linha ~254) — um laço de correia adicional, seguindo o padrão de `tube` fechado já usado na correia dentada (linha 221). |
-| `parking-brake` | `brakes` | Console central da cabine (perto de `[.1, .6, 0]`, linha ~274-276) — uma pequena alavanca genérica entre os bancos. |
-| `brake-caliper` | `brakes` | Mesma posição de `brake-disc`/`brake-pad` (`discZ`, dentro do loop de rodas, linha ~152-178) — uma carcaça envolvendo parte do disco, hoje só sugerida implicitamente pela pastilha. |
-| `ignition-coil` | `electrical` | Sobre o cabeçote, perto das velas (`x = -1.84 + i*.232`, y ≈ 1.2, linha ~204-209) — um pequeno bloco por cilindro ou um bloco único cobrindo os 4. |
-| `fuses` | `electrical` | Perto da bateria (`[-1.26, .9, -.68]`, linha ~250) — uma caixa pequena com tampa, no vão do motor. |
+| `air-filter` | `engine` | Perto do bloco do motor (`CarScene.tsx:206-208`, x ≈ -1.8 a -1.5, y ≈ .9-1.1) — uma caixa achatada representando a caixa do filtro de ar, no lado de admissão. |
+| `accessory-belt` | `engine` | Entre a polia do virabrequim (região do bloco do motor) e o alternador (`[-1.99, .64, .4]`, linha 266) — um laço de correia adicional, seguindo o padrão de `tube` fechado já usado na correia dentada (linha 228). |
+| `parking-brake` | `brakes` | Console central da cabine (perto de `[.1, .6, 0]`, linha 286) — uma pequena alavanca genérica entre os bancos. |
+| `brake-caliper` | `brakes` | Mesma posição de `brake-disc`/`brake-pad` (`discZ`, linha 180, com as duas peças logo depois em 181-187) — uma carcaça envolvendo parte do disco, hoje só sugerida implicitamente pela pastilha. |
+| `ignition-coil` | `electrical` | Sobre o cabeçote, perto das velas (`x = -1.84 + i*.232`, loop começando em 209, vela em 212, y ≈ 1.2) — um pequeno bloco por cilindro ou um bloco único cobrindo os 4. |
+| `fuses` | `electrical` | Perto da bateria (`[-1.26, .9, -.68]`, linha 262) — uma caixa pequena com tampa, no vão do motor. |
 | `wheel-bearing` | `suspension` | Dentro do cubo da roda (mesma região dos hub caps, linha ~173-174) — um anel/disco fino, parcialmente oculto atrás da tampa do cubo já existente. |
-| `sway-bar` | `suspension` | Uma barra fina conectando as duas mangas de eixo dianteiras (região da manga de eixo, ver a bandeja/`tube` da suspensão, linha ~179) — usar `tube`/`cyl` reto atravessando o eixo X entre `x=-1.68` e `x=1.68` (ou só no eixo dianteiro, a decidir na implementação). |
-| `coolant-reservoir` | `cooling` | Perto do topo do radiador (`[-2.17, 1.055, 0]`, linha ~229) — uma caixa pequena semitransparente (`opacity` reduzida, como já usado em `brake-fluid`). |
+| `sway-bar` | `suspension` | Uma barra fina conectando as duas mangas de eixo dianteiras (região da bandeja/`tube` de suspensão, linha 189) — usar `tube`/`cyl` reto atravessando o eixo X entre `x=-1.68` e `x=1.68` (ou só no eixo dianteiro, a decidir na implementação). |
+| `coolant-reservoir` | `cooling` | Perto do topo do radiador (`[-2.17, 1.055, 0]`, linha 241) — uma caixa pequena semitransparente (`opacity` reduzida, como já usado em `brake-fluid`). |
 
 ## Fora de escopo
 
