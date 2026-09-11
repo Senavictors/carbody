@@ -4,7 +4,7 @@
 
 ## Estado atual
 
-Carbody (marca visível no app: "carbody.") é uma SPA em React 19 + TypeScript + Vite 7, com uma cena 3D interativa em Three.js (`CarScene.tsx`) e um laboratório de mecanismos animado (`MechanismLab.tsx`). O catálogo de conteúdo (`src/data/parts.ts`) cobre 19 peças em 6 sistemas, cada peça com fontes reais citadas. Aplicação 100% local: sem conta, sem backend, progresso salvo em `localStorage`. Branch `main`, publicado em `github.com/Senavictors/carbody`. Build (`npm run build`) e typecheck (`tsc -b`) passam limpos.
+Carbody (marca visível no app: "carbody.") é uma SPA em React 19 + TypeScript + Vite 7, com uma cena 3D interativa em Three.js (`CarScene.tsx` — geometria procedural, ambiente PMREM + AO via `EffectComposer`) e um laboratório de mecanismos animado (`MechanismLab.tsx`). O catálogo de conteúdo (`src/data/parts.ts`) cobre 34 peças em 7 sistemas, cada peça com fontes reais citadas. Aplicação 100% local: sem conta, sem backend, progresso salvo em `localStorage`. Branch `main`, publicado em `github.com/Senavictors/carbody`. Build (`npm run build`) e typecheck (`tsc -b`) passam limpos.
 
 ## Iniciativas ativas
 
@@ -35,7 +35,7 @@ Ver `docs/architecture/` para a visão completa (contexto, containers, component
 
 ## Decisões recentes
 
-- Ver `.agents/decisions/` — `ADR-001` registra a decisão de versionar todo o hub de agentes (`.agents/`, roteadores, `docs/`) neste repositório público, em vez de mantê-los locais.
+Ver `.agents/decisions/` (índice em `README.md`): `ADR-001` (versionar o hub de agentes no repositório público), `ADR-002` (realismo do modelo 3D — concluída), `ADR-003` (expansão do catálogo de peças — concluída).
 
 ## Riscos atuais
 
