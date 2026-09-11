@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: src/
-ultima-revisao: bootstrap-init, 2026-09-11
+ultima-revisao: TASK-001/TASK-002, 2026-09-11
 ---
 
 # Módulos
@@ -35,4 +35,8 @@ ultima-revisao: <task ou data>
 ## Decisões relacionadas
 ```
 
-_(criar um arquivo por módulo conforme necessário — candidatos naturais: `car-scene.md`, `mechanism-lab.md`, `parts-catalog.md`, `app-shell.md`)_
+Módulos documentados até agora:
+
+- [`car-scene.md`](car-scene.md) — cena 3D interativa (Three.js), criado ao concluir `TASK-001`/`TASK-002`.
+
+_(criar os demais conforme necessário — candidatos naturais restantes: `mechanism-lab.md`, `parts-catalog.md`, `app-shell.md`)_

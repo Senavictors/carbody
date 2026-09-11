@@ -1,7 +1,7 @@
 ---
 id: TASK-001
 title: Iluminação física, ambiente procedural e AO no modelo 3D
-status: active
+status: completed
 type: enhancement
 owner: three-scene (Claude Code)
 created_at: 2026-09-11

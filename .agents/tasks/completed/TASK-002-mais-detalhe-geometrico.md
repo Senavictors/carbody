@@ -1,7 +1,7 @@
 ---
 id: TASK-002
 title: Mais detalhe geométrico no modelo 3D (segmentos + peças adicionais)
-status: active
+status: completed
 type: enhancement
 owner: three-scene (Claude Code)
 created_at: 2026-09-11

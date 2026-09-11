@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: src/App.tsx, src/components/, src/data/parts.ts
-ultima-revisao: bootstrap-init, 2026-09-11
+ultima-revisao: TASK-001/TASK-002, 2026-09-11
 ---
 
 # Componentes
@@ -14,7 +14,7 @@ Componentes internos relevantes por camada. Carbody não tem camadas de backend/
 
 ## Camada de visualização — cena 3D
 
-- **`CarScene.tsx`** (`src/components/`) — cena Three.js imperativa: geometria procedural do carro, câmera ortográfica + `OrbitControls`, raycasting para seleção de peças, pins HTML projetados por frame, fallback SVG quando WebGL está indisponível. Ver `.claude/agents/three-scene.md` para as regras completas.
+- **`CarScene.tsx`** (`src/components/`) — cena Three.js imperativa: geometria procedural do carro, câmera ortográfica + `OrbitControls`, raycasting para seleção de peças, pins HTML projetados por frame, fallback SVG quando WebGL está indisponível. Renderiza via `EffectComposer` (`RenderPass` → `GTAOPass` → `OutputPass`), com um ambiente procedural (`PMREMGenerator` + `RoomEnvironment`, gerado localmente) atribuído a `scene.environment` para reflexo em metais/vidros. Detalhes em [`../modules/car-scene.md`](../modules/car-scene.md). Ver `.claude/agents/three-scene.md` para as regras completas.
 
 ## Camada de visualização — laboratório de mecanismos
 
