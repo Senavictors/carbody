@@ -1,9 +1,9 @@
 ---
 id: TASK-004
 title: "Conteúdo: 9 peças que completam sistemas existentes"
-status: backlog
+status: completed
 type: feature
-owner:
+owner: content-catalog (subagent)
 created_at: 2026-09-11
 updated_at: 2026-09-11
 affected_modules: [content-catalog]
@@ -61,11 +61,11 @@ Nenhuma das 9 peças existe em `parts`.
 
 ## Critérios de aceitação
 
-- [ ] CA-01: as 9 entradas existem em `parts`, cada uma no sistema correto da tabela.
-- [ ] CA-02: cada uma tem `sourceIds` real.
-- [ ] CA-03: toda fonte nova está na tabela de `CONTENT_SOURCES.md`.
-- [ ] CA-04: `npm run build` passa sem erros.
-- [ ] CA-05: nenhuma peça existente foi alterada (incluindo `spark-plug`, cujo texto sobre a bobina não deve virar duplicata nem contradição do novo `ignition-coil`).
+- [x] CA-01: as 9 entradas existem em `parts`, cada uma no sistema correto da tabela.
+- [x] CA-02: cada uma tem `sourceIds` real.
+- [x] CA-03: toda fonte nova está na tabela de `CONTENT_SOURCES.md`.
+- [x] CA-04: `npm run build` passa sem erros.
+- [x] CA-05: nenhuma peça existente foi alterada (incluindo `spark-plug`, cujo texto sobre a bobina não deve virar duplicata nem contradição do novo `ignition-coil`).
 
 ## Impacto técnico
 
@@ -77,10 +77,10 @@ Não se aplica.
 
 ## Plano de implementação
 
-- [ ] Etapa 1: revisar as fontes já cadastradas em `sources` por sobreposição (ex.: Bosch/HELLA para elétrica, Brembo para pinça de freio, Gates/MANN para motor).
-- [ ] Etapa 2: escrever as 9 entradas, uma de cada vez, checando `spark-plug` antes de escrever `ignition-coil` para não duplicar.
-- [ ] Etapa 3: adicionar fontes novas a `sources`/`CONTENT_SOURCES.md`.
-- [ ] Etapa 4: `npm run build`.
+- [x] Etapa 1: revisar as fontes já cadastradas em `sources` por sobreposição (ex.: Bosch/HELLA para elétrica, Brembo para pinça de freio, Gates/MANN para motor).
+- [x] Etapa 2: escrever as 9 entradas, uma de cada vez, checando `spark-plug` antes de escrever `ignition-coil` para não duplicar.
+- [x] Etapa 3: adicionar fontes novas a `sources`/`CONTENT_SOURCES.md`.
+- [x] Etapa 4: `npm run build`.
 
 ## Estratégia de testes
 
@@ -93,13 +93,30 @@ Risco: 9 peças de uma vez aumenta a chance de uma fonte fraca passar despercebi
 
 ## Registro de execução
 ### Alterações realizadas
+Adicionadas as 9 entradas em `parts`, cada uma no sistema correto: `air-filter`/`accessory-belt` (`engine`), `parking-brake`/`brake-caliper` (`brakes`), `ignition-coil`/`fuses` (`electrical`), `wheel-bearing`/`sway-bar` (`suspension`), `coolant-reservoir` (`cooling`). Adicionadas 8 fontes novas em `sources` (nenhuma sobreposição direta de organização com id diferente foi usada — `sway-bar` reaproveita a fonte `zf-chassis-parts` já criada na TASK-003).
+
 ### Arquivos principais
+- `src/data/parts.ts` (9 entradas em `parts`, 8 entradas em `sources`)
+- `CONTENT_SOURCES.md` (8 linhas novas na tabela de fontes + nota sobre os 403/PDF)
+
 ### Decisões
+- `ignition-coil`: reli `spark-plug` antes de escrever. O texto de `ignition-coil` foca no funcionamento interno da bobina (transformador, alta tensão) e explicita que os sintomas de bobina e vela se parecem, exigindo avaliação para diferenciar — sem repetir a frase "a bobina entrega alta tensão à vela" já usada em `spark-plug.how`.
+- `fuses`: segui a orientação da task de manter `attention: 'Atenção aos sinais'` e `difficulty: 'Essencial'`, e evitei qualquer passo a passo de troca — o campo `care` menciona consultar o manual, mas não descreve como remover/inserir um fusível.
+- `parking-brake`: mantive o texto no nível conceitual (mecanismo mecânico ou elétrico, sem detalhar cabo vs. atuador elétrico como implementação única), conforme alertado na task.
+- Reaproveitei a fonte `zf-chassis-parts` (já criada na TASK-003) para `sway-bar`, em vez de criar uma fonte nova — a mesma página da ZF Aftermarket cobre peças de chassi/estabilizador de forma genérica.
+- 3 das 8 fontes novas (`aa-parking-brake`, `rac-fuses`, `gates-accessory-belt`) responderam HTTP 403 na abertura direta (WebFetch), mas seu conteúdo foi confirmado via busca indexada (mesmo critério já documentado em `CONTENT_SOURCES.md` para `aa-starting`). `timken-wheel-bearing` resolve para um PDF técnico da Timken (confirmado via download binário bem-sucedido), padrão já existente com `hella-alternator`.
+
 ### Divergências
+Nenhuma peça exigiu desvio do plano original da task além do já registrado em "Decisões".
+
 ### Pendências
+Nenhuma pendência de conteúdo. A geometria correspondente é `TASK-007` (trilha paralela, `three-scene`), fora do escopo desta task.
 
 ## Validação
-Comandos e resultados.
+- `npx tsc -b --noEmit`: sem erros.
+- `npm run build`: build de produção concluído sem erros (aviso pré-existente de chunk grande do Three.js, não relacionado a esta mudança).
+- Releitura cruzada de `spark-plug` e `ignition-coil`: textos complementares, sem duplicação de frase nem contradição.
+- Não foi feita verificação visual no navegador (fora do escopo desta task de conteúdo puro, e para não colidir com o outro subagente rodando `npm run dev`/preview em paralelo).
 
 ## Handoff
-Link para o handoff ativo, quando aplicável.
+Não aplicável — task concluída nesta sessão.

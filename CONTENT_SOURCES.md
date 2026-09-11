@@ -29,6 +29,16 @@ Todas as referências do catálogo são de fabricantes ou clubes automotivos. Os
 | Arrefecimento | [HELLA: circuito](https://www.hella.com/techworld/us/technical/car-cooling-system/engine-cooling/), [HELLA: bomba](https://www.hella.com/techworld/us/technical/car-cooling-system/defective-water-pump/), [HELLA: válvula termostática](https://www.hella.com/techworld/us/passenger-car-parts/vehicle-electrics/coolant-thermostats/) |
 | Alertas e contexto de manutenção | [AAA: luzes do painel](https://cluballiance.aaa.com/the-extra-mile/series/the-extra-mile-magazine/a-warning-light-road-map), [The AA: falhas comuns](https://www.theaa.com/breakdown-cover/advice/top-ten-breakdown-causes) |
 | Sistema de escape | [Walker: componentes do sistema de escape](https://www.walkerexhaust.com/support/exhaust-101/what-parts-make-up-the-exhaust-system.html) |
-| Direção | [ZF Aftermarket: peças de direção e chassi](https://aftermarket.zf.com/en/aftermarket-portal/our-portfolio/passenger-cars/products/steering-chassis-parts/) |
+| Direção e barra estabilizadora | [ZF Aftermarket: peças de direção e chassi](https://aftermarket.zf.com/en/aftermarket-portal/our-portfolio/passenger-cars/products/steering-chassis-parts/) |
+| Filtro de ar | [MANN-FILTER: função do filtro de ar](https://www.mann-filter.com/us-en/parts/air-filter.html) |
+| Correia auxiliar | [Gates: sistema de correia auxiliar (Micro-V)](https://www.gates.com/gb/en/innovations-and-solutions/automotive-and-on-highway-solutions/micro-v-belt-drive-systems.html) |
+| Freio de mão | [The AA: funcionamento e desgaste do freio de mão](https://www.theaa.com/driving-advice/service-repair/brakes-discs-drums-pads) |
+| Pinça de freio | [Brembo: pinças fixas e flutuantes](https://www.bremboparts.com/america/en/support/insights/brake-caliper-technology-and-operation-324333) |
+| Bobina de ignição | [Bosch: como a bobina gera alta tensão](https://www.bosch-mobility.com/en/solutions/ignition/ignition-coil/) |
+| Fusíveis e relés | [RAC: como identificar um fusível queimado](https://www.rac.co.uk/drive/advice/car-maintenance/blown-car-fuse/) |
+| Rolamento de roda | [Timken: sinais de desgaste do rolamento de roda](https://www.timken.com/resources/md17-symptoms-of-a-worn-wheel-hub-bearing/) |
+| Reservatório de expansão | [HELLA: função do reservatório de expansão](https://www.hella.com/techworld/us/passenger-car-parts/thermal-management/ec-expansion-tanks/) |
+
+Três fontes desta lista responderam 403 na abertura direta (`aa-parking-brake`, `rac-fuses`, `gates-accessory-belt`), mas seu conteúdo estava disponível na busca indexada — mesmo critério já usado para `aa-starting`. A fonte `timken-wheel-bearing` aponta para um documento técnico (PDF) da Timken, como já ocorre com `hella-alternator`.
 
 O cadastro exportado mantém os links complementares. Propaganda de produto, prazos médios, rankings e percentuais das fontes não foram reproduzidos como regras universais.
