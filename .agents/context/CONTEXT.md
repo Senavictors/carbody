@@ -11,7 +11,7 @@ Carbody (marca visível no app: "carbody.") é uma SPA em React 19 + TypeScript 
 - **Realismo do modelo 3D** (`ADR-002`): `TASK-001` e `TASK-002` concluídas — ver `.agents/tasks/completed/`.
 - **Expansão do catálogo de peças** (`ADR-003`, 2026-09-11): 15 peças novas + um 7º sistema ("Combustível"), organizadas em duas trilhas paralelas por papel, todas em `.agents/tasks/backlog/`, nenhuma iniciada ainda:
   - Trilha conteúdo (`content-catalog`): `TASK-003` (escape/direção — peças já modeladas em 3D), `TASK-004` (9 peças que completam sistemas existentes), `TASK-005` (sistema de combustível novo — `SystemId`, `systems`, `systemIcons`).
-  - Trilha geometria (`three-scene`): `TASK-006`, `TASK-007`, `TASK-008` (pares exatos das três de conteúdo, mesma ordem).
+  - Trilha geometria (`three-scene`): `TASK-006`, `TASK-007` e `TASK-008` concluídas — ver `.agents/tasks/completed/`. As 15 peças novas (escape/direção, as 9 que completam sistemas existentes, e as 4 do sistema de combustível) têm geometria em `CarScene.tsx` com `system`/`part` corretos, usando só os helpers já estabelecidos (`box`/`cyl`/`torus`/`tube`). Validado por `npx tsc -b --noEmit` + `npm run build` (sem erros) em cada task; verificação visual no navegador (clique em cada peça, opacidade por sistema, comparação das 3 visões, colisão de geometria) não foi feita — pendente para quando as duas trilhas convergirem.
   - Ids de todas as peças novas fixados na tabela do `ADR-003` — qualquer implementação deve usá-los exatamente, para as duas trilhas convergirem sem peça órfã.
 
 ## Arquitetura vigente
