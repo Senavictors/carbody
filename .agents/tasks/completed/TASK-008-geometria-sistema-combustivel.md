@@ -43,10 +43,10 @@ Todas usam os helpers já existentes, com `system: 'fuel'` e `part` igual ao id 
 
 ## Critérios de aceitação
 
-- [~] CA-01: as 4 peças são visíveis e clicáveis, cada uma respondendo ao filtro do sistema `fuel`. Verificado por revisão de código — as 4 usam `box`/`cyl`/`tube` com `system: 'fuel'` e o `part` correto, o que as coloca em `pickables`/`appearances`; clique real e presença do sistema "Combustível" na navegação (que depende de `TASK-005`) não testados nesta sessão.
+- [x] CA-01: confirmado pela sessão principal — depois que `TASK-005` (e a correção de `PartSketch.tsx`) foram concluídas, o sistema "Combustível" aparece na navegação, e as 4 peças aparecem corretamente na biblioteca com conteúdo; o tanque foi visualmente localizado na traseira do chassi, sem colisão aparente com o escape (que ocupa o lado oposto em z).
 - [x] CA-02: nenhuma peça existente mudou de posição/escala/cor (só inserções de blocos novos; nenhuma chamada pré-existente foi tocada).
-- [x] CA-03: `npm run build` passa sem erros (rodado nesta sessão).
-- [~] CA-04: comparação visual nas 3 visões, com/sem carroceria. Não executada nesta sessão (sem navegador/servidor de dev) — calibração feita só por cálculo das coordenadas/dimensões contra as peças vizinhas já existentes no código (tanque, cauda de escape, eixo traseiro, corte do túnel de admissão). Fica para a sessão principal.
+- [x] CA-03: `npm run build` passa sem erros (rodado nesta sessão, e novamente pela sessão principal após o fix de `PartSketch.tsx`).
+- [~] CA-04: comparação visual feita pela sessão principal nas visões "Visão geral" e "Lateral", com carroceria ligada/desligada — sem colisão aparente entre tanque/linha de combustível e escape/eixo traseiro/console. A visão "Superior" especificamente não foi conferida.
 
 ## Impacto técnico
 

@@ -61,9 +61,9 @@ Nenhuma posição, cor ou geometria muda — só os dois argumentos de `system`/
 
 ## Critérios de aceitação
 
-- [~] CA-01: clicar no tubo de escape ou no silencioso, no modelo 3D, abre o painel de detalhe da peça `exhaust`. Verificado por revisão de código (ambos os meshes agora têm `userData.part = 'exhaust'`/`userData.system = 'engine'` e estão em `pickables`, então o handler `up`/raycaster os encontra); não testado clicando no navegador nesta sessão (ver seção Validação).
-- [~] CA-02: clicar no volante abre o painel de detalhe da peça `steering`. Mesma verificação por revisão de código (`torus(...)` agora recebe `'suspension'`, `'steering'`); não testado visualmente nesta sessão.
-- [~] CA-03: as duas peças respondem corretamente ao filtro por sistema. Verificado por revisão de código: como ambas entram em `appearances` (via `solid()`, que só empurra para `appearances` quando o objeto não é `body`), a opacidade é recalculada em `appearance()` de acordo com `props.current.activeSystem` — não testado visualmente.
+- [x] CA-01: confirmado pela sessão principal — clique direto no tubo de escape/silencioso no navegador abre o painel "Sistema de escape".
+- [~] CA-02: clicar no volante abre o painel de detalhe da peça `steering`. Confirmado por revisão de código (`torus(...)` recebe `'suspension'`/`'steering'`, mesmo padrão do escape que foi confirmado por clique real); a sessão principal tentou repetidas vezes acertar o clique exato no anel fino do volante no navegador sem sucesso (alvo pequeno, coordenadas de clique nem sempre mapeiam 1:1 com o screenshot escalado nesta ferramenta) — não é evidência de que não funcione, só que não foi confirmado por clique direto.
+- [x] CA-03: confirmado visualmente pela sessão principal — ao trocar entre abas de sistema (Motor/Freios/Suspensão/Elétrica/Combustível), as peças fora do sistema selecionado ficam visivelmente esmaecidas, incluindo as peças desta task.
 - [x] CA-04: nenhuma posição/cor/geometria mudou — só os parâmetros de sistema/peça (2 chamadas do bloco de escape, 1 do volante; diff confirma que só os argumentos 4/5 de cada helper mudaram).
 - [x] CA-05: `npm run build` passa sem erros (rodado nesta sessão, saída limpa, mesmo warning pré-existente de chunk size).
 

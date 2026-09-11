@@ -5,7 +5,7 @@ type PartSketchProps = { system: SystemId; partId?: string };
 
 const primaryPart: Record<SystemId, string> = {
   all: 'engine', engine: 'engine', transmission: 'gearbox', brakes: 'brake-disc',
-  suspension: 'shock-absorber', electrical: 'battery', cooling: 'radiator',
+  suspension: 'shock-absorber', electrical: 'battery', cooling: 'radiator', fuel: 'fuel-tank',
 };
 
 function gearOutline(cx: number, cy: number, radius: number, teeth: number) {

@@ -50,10 +50,10 @@ Adicionar `'fuel'` a `SystemId`, uma entrada correspondente em `systems` (nome d
 ## Critérios de aceitação
 
 - [x] CA-01: `SystemId` inclui `'fuel'`; `systems` tem a entrada de exibição correspondente.
-- [~] CA-02: `App.tsx`/`systemIcons` foi atualizado com um ícone para `fuel` (chave `fuel: Fuel` adicionada, erro específico de `systemIcons` confirmado resolvido) — mas `npm run build` **não passa** no repositório como um todo, porque `src/components/PartSketch.tsx` (fora do escopo desta task/trilha) tem seu próprio `Record<SystemId, string>` (`primaryPart`) que também exige a chave `fuel`. Ver "Pendências".
+- [x] CA-02: `App.tsx`/`systemIcons` foi atualizado com um ícone para `fuel`. O bloqueador em `src/components/PartSketch.tsx` (fora do escopo desta trilha) foi corrigido pela sessão principal — `npm run build` passa limpo no repositório inteiro.
 - [x] CA-03: as 4 peças existem em `parts`, todas `system: 'fuel'`, com `sourceIds` reais.
 - [x] CA-04: toda fonte nova está em `CONTENT_SOURCES.md`.
-- [ ] CA-05: não verificado. Não rodei `npm run dev`/preview (instrução explícita para não colidir com o outro subagente na porta 5173) e, mesmo que tivesse rodado, o build não compilaria por causa do CA-02. Verificação visual fica pendente para depois que o PartSketch.tsx for corrigido.
+- [x] CA-05: verificado no navegador pela sessão principal — sistema "Combustível" na navegação com ícone, as 4 peças navegáveis com conteúdo correto.
 - [x] CA-06: nenhum sistema/peça existente foi alterado.
 
 ## Impacto técnico
@@ -101,9 +101,12 @@ Risco principal: um ícone escolhido que não exista na versão instalada de `lu
 
 `PartSketch.tsx` **não está** na lista de arquivos que esta sessão pode editar (só `src/data/parts.ts`, `CONTENT_SOURCES.md` e a linha de `systemIcons` em `src/App.tsx`), então **não editei esse arquivo**. Sinalizei o achado como uma tarefa de background (`spawn_task`, id `task_c45bff02`) com a sugestão concreta de correção (adicionar `fuel: '<id>'` ao `primaryPart`, escolhendo entre `fuel-tank`/`fuel-pump`/`fuel-filter`/`fuel-injector`, e verificar se `PartShape` precisa de um `case` novo).
 
-### Pendências
-- **Bloqueador de build, fora do meu escopo de arquivo**: `npm run build` falha em `src/components/PartSketch.tsx` (`Property 'fuel' is missing in type ... Record<SystemId, string>`). Minha parte (`parts.ts`, `App.tsx`/`systemIcons`) está correta e o erro específico dela já foi confirmado resolvido isoladamente (rodei o typecheck logo após a correção de `systemIcons`, antes de reintroduzir o erro de `PartSketch.tsx` ao adicionar as peças — na verdade o erro de `PartSketch.tsx` já existia desde que `'fuel'` foi adicionado a `SystemId`, ele só não tinha sido mostrado ainda porque o typecheck para no primeiro erro por arquivo, não builda tudo de uma vez... na prática, os dois erros apareceram juntos na primeira rodada e o de `systemIcons` sumiu depois da minha correção, restando só o de `PartSketch.tsx`). Esse arquivo pertence à trilha `react-ui`, não a `content-catalog` nem a `three-scene` — nenhuma das duas trilhas desta ADR tem esse arquivo no escopo. Precisa de uma correção de uma linha por quem tiver permissão de editar `PartSketch.tsx` antes que `npm run build` volte a passar.
-- Verificação visual (CA-05) não realizada, tanto pela instrução de não rodar servidor de dev nesta sessão quanto pelo bloqueio de build acima.
+### Pendências (resolvidas pela sessão principal em 2026-09-11)
+- ~~Bloqueador de build~~: corrigido. `src/components/PartSketch.tsx`'s `primaryPart` ganhou `fuel: 'fuel-tank'`, seguindo exatamente o mesmo padrão já usado para `engine: 'engine'` (cai no ícone genérico do `case default` de `PartShape`, já que não existe `case 'fuel-tank':` — comportamento idêntico ao de `engine`, não é um caso especial). `npx tsc -b --noEmit` e `npm run build` confirmados limpos depois da correção.
+- ~~Verificação visual (CA-05)~~: feita pela sessão principal no navegador — aba "Combustível" aparece na navegação lateral e nas abas de sistema com o ícone `Fuel`; as 4 peças aparecem corretamente na biblioteca ("Peças e cuidados" → filtro "Combustível") com conteúdo e ícone; abrir "Tanque de combustível" no modelo 3D mostra o painel de detalhe correto.
+
+### Verificação da sessão principal (2026-09-11)
+- CA-02 e CA-05 atualizados para `[x]` abaixo — ver acima.
 
 ## Validação
 - `npx tsc -b --noEmit` logo após adicionar `'fuel'` a `SystemId`/`systems` (antes de tocar `systemIcons`): erro esperado confirmado em `src/App.tsx(14,7)` (`systemIcons`) — **e também**, já nessa mesma rodada, um erro em `src/components/PartSketch.tsx(6,7)` pelo mesmo motivo (não antecipado pela task).

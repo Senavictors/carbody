@@ -51,11 +51,11 @@ Cada peça nova segue o padrão já estabelecido: construída via `box`/`cyl`/`t
 
 ## Critérios de aceitação
 
-- [~] CA-01: as 9 peças são visíveis e clicáveis no modelo 3D, cada uma abrindo o painel de detalhe correto (depois que `TASK-004` cadastrar o conteúdo correspondente). Verificado por revisão de código — todas as 9 usam os helpers `box`/`cyl`/`torus`/`tube` com `system`/`part` preenchidos, o que as coloca em `pickables`; clique real não testado nesta sessão (sem navegador — ver Validação).
-- [~] CA-02: nenhuma peça existente mudou de posição/escala/cor perceptível. Todas as chamadas pré-existentes foram deixadas intactas (diff confirma só inserções); comparação visual das 3 visões não foi feita nesta sessão.
-- [~] CA-03: as 9 peças respondem corretamente à opacidade por sistema. Verificado por revisão de código (todas passam por `solid()`, que as registra em `appearances` com o `system` correto); não confirmado visualmente.
-- [x] CA-04: `npm run build` passa sem erros (rodado nesta sessão).
-- [~] CA-05: fluidez de interação (arrastar/zoom) permanece sem engasgos perceptíveis em desktop. Não avaliável sem navegador nesta sessão; o acréscimo é de 9 blocos de geometria simples (poucos triângulos cada, mesmos helpers/segmentos já usados no resto do modelo), risco de impacto perceptível de performance considerado baixo, mas não medido.
+- [~] CA-01: as 9 peças são visíveis e clicáveis. A sessão principal confirmou visualmente, nas abas de sistema, que as 9 aparecem no modelo (Motor, Freios, Elétrica, Suspensão, Arrefecimento) sem elemento faltando ou visualmente quebrado, e confirmou o conteúdo das 9 na biblioteca de peças; clique direto em cada uma das 9 malhas especificamente não foi testado uma a uma (ver `TASK-006`, mesma limitação de mira em alvos pequenos na ferramenta de captura desta sessão) — o mecanismo de raycasting em si foi confirmado funcionando (peça `exhaust`, `TASK-006`, e uma peça pré-existente em sessão anterior).
+- [x] CA-02: confirmado pela sessão principal — comparação visual das visões "Visão geral"/"Lateral" não mostrou nenhuma peça pré-existente fora do lugar, e o diff já mostrava só inserções.
+- [x] CA-03: confirmado visualmente pela sessão principal (mesma checagem de `TASK-006`, opacidade por sistema testada em 5 abas).
+- [x] CA-04: `npm run build` passa sem erros (rodado nesta sessão, e novamente pela sessão principal após o fix de `PartSketch.tsx`).
+- [x] CA-05: confirmado qualitativamente pela sessão principal — várias interações de arrastar/zoom/trocar de visão sem engasgo perceptível.
 
 ## Impacto técnico
 
