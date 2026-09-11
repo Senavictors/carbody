@@ -5,3 +5,15 @@ playwright-report/
 *.log
 *.tsbuildinfo
 .impeccable/
+
+# Arquitetura de agentes de IA (bootstrap-agent-architecture): tasks/decisões/docs
+# são versionados neste projeto por decisão explícita — ver ADR-001 em
+# .agents/decisions/. Segredos continuam sempre fora do Git, independente disso.
+.env*
+!.env.example
+secrets/**
+credentials/**
+*.pem
+*.key
+backups/**
+dumps/**
