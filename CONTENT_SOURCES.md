@@ -1,6 +1,6 @@
 # Conteúdo educativo do Carbody
 
-Pesquisa e redação: 11 de setembro de 2026. O catálogo está em `src/data/parts.ts`, com 19 peças, seis sistemas e referências vinculadas a cada peça por `sourceIds`.
+Pesquisa e redação: 11 de setembro de 2026 (expandido em 11 de setembro de 2026, `ADR-003`). O catálogo está em `src/data/parts.ts`, com 34 peças, sete sistemas e referências vinculadas a cada peça por `sourceIds`.
 
 ## Recorte e decisões editoriais
 
@@ -38,6 +38,10 @@ Todas as referências do catálogo são de fabricantes ou clubes automotivos. Os
 | Fusíveis e relés | [RAC: como identificar um fusível queimado](https://www.rac.co.uk/drive/advice/car-maintenance/blown-car-fuse/) |
 | Rolamento de roda | [Timken: sinais de desgaste do rolamento de roda](https://www.timken.com/resources/md17-symptoms-of-a-worn-wheel-hub-bearing/) |
 | Reservatório de expansão | [HELLA: função do reservatório de expansão](https://www.hella.com/techworld/us/passenger-car-parts/thermal-management/ec-expansion-tanks/) |
+| Tanque de combustível | [Kautex: sistemas de combustível convencionais](https://www.kautex.com/en/mobility/fuel-systems/conventional-fuel-systems) |
+| Bomba de combustível | [Bosch: módulo de alimentação de combustível](https://www.bosch-mobility.com/en/solutions/pumps/fuel-supply-module/) |
+| Filtro de combustível | [MANN-FILTER: função do filtro de combustível](https://www.mann-filter.com/us-en/parts/fuel-filter.html) |
+| Bico injetor | [Bosch: função do bico injetor](https://www.bosch-mobility.com/en/solutions/valves/fuel-injector-manifold/) |
 
 Três fontes desta lista responderam 403 na abertura direta (`aa-parking-brake`, `rac-fuses`, `gates-accessory-belt`), mas seu conteúdo estava disponível na busca indexada — mesmo critério já usado para `aa-starting`. A fonte `timken-wheel-bearing` aponta para um documento técnico (PDF) da Timken, como já ocorre com `hella-alternator`.
 

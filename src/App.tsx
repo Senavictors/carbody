@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Box, Check, CheckCircle2, ChevronRight, CircleDot, Cog, Droplets, ExternalLink, GraduationCap, Layers3, Menu, Minus, Move, Play, Plus, RotateCcw, Search, Settings2, ShieldCheck, Sparkles, Wrench, X, Zap } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Box, Check, CheckCircle2, ChevronRight, CircleDot, Cog, Droplets, ExternalLink, Fuel, GraduationCap, Layers3, Menu, Minus, Move, Play, Plus, RotateCcw, Search, Settings2, ShieldCheck, Sparkles, Wrench, X, Zap } from 'lucide-react';
 import { parts, sources, systems } from './data/parts';
 import type { Part, SystemId } from './data/parts';
 import PartSketch from './components/PartSketch';
@@ -11,7 +11,7 @@ const MechanismLab = lazy(() => import('./components/MechanismLab'));
 type Page = 'explore' | 'mechanisms' | 'parts' | 'progress';
 type View = 'perspective' | 'side' | 'top';
 const STORAGE_KEY = 'por-dentro:learned:v1';
-const systemIcons: Record<SystemId, LucideIcon> = { all: Layers3, engine: Cog, transmission: Settings2, brakes: CircleDot, suspension: Move, electrical: Zap, cooling: Droplets };
+const systemIcons: Record<SystemId, LucideIcon> = { all: Layers3, engine: Cog, transmission: Settings2, brakes: CircleDot, suspension: Move, electrical: Zap, cooling: Droplets, fuel: Fuel };
 const navigation: { id: Page; title: string; icon: LucideIcon }[] = [
   { id: 'explore', title: 'Explorar o carro', icon: Box },
   { id: 'mechanisms', title: 'Como funciona', icon: Cog },

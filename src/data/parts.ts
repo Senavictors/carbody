@@ -1,4 +1,4 @@
-export type SystemId = 'all' | 'engine' | 'transmission' | 'brakes' | 'suspension' | 'electrical' | 'cooling';
+export type SystemId = 'all' | 'engine' | 'transmission' | 'brakes' | 'suspension' | 'electrical' | 'cooling' | 'fuel';
 
 export const systems: { id: SystemId; name: string; description: string }[] = [
   { id: 'all', name: 'Visão geral', description: 'Conheça as peças e descubra como elas trabalham juntas.' },
@@ -8,6 +8,7 @@ export const systems: { id: SystemId; name: string; description: string }[] = [
   { id: 'suspension', name: 'Suspensão', description: 'Suspensão e rodagem: conforto, apoio e contato com o chão.' },
   { id: 'electrical', name: 'Elétrica', description: 'Energia para dar a partida e alimentar o carro.' },
   { id: 'cooling', name: 'Arrefecimento', description: 'O circuito que mantém o motor na temperatura de trabalho.' },
+  { id: 'fuel', name: 'Combustível', description: 'Do tanque até a câmara de combustão: como o combustível chega ao motor.' },
 ];
 
 export interface Part {
@@ -327,6 +328,46 @@ export const parts: Part[] = [
     care: 'Verifique o nível com o motor frio, seguindo a indicação do reservatório. Nunca abra o reservatório ou o sistema com o motor quente. Necessidade repetida de completar o nível pede investigação, não só reposição.',
     attention: 'Atenção aos sinais', difficulty: 'Essencial', sourceIds: ['hella-coolant-reservoir'],
   },
+  {
+    id: 'fuel-tank', system: 'fuel', name: 'Tanque de combustível', shortName: 'Tanque',
+    summary: 'Guarda a reserva de combustível do carro com segurança, alimentando a bomba conforme o motor precisa. Seu projeto também cuida de reduzir ruído e vapor.',
+    function: 'Armazena o combustível disponível para o motor. O projeto do tanque precisa lidar com o movimento do líquido, o controle de vapores e a segurança em caso de impacto.',
+    how: 'Geralmente feito de plástico moldado ou metal, com defletores internos que reduzem o barulho do combustível se movendo. Um sistema de respiro controla a saída de vapores, e um tubo de enchimento recebe o abastecimento.',
+    analogy: 'É mais que um simples recipiente: pense em uma garrafa térmica com compartimentos internos, pensada para conter o líquido com segurança mesmo em movimento.',
+    signs: ['Cheiro de combustível persistente', 'Manchas ou vestígios de vazamento embaixo do carro', 'Indicador de nível com leitura inconsistente'],
+    care: 'Vazamento ou cheiro de combustível pede parada segura e avaliação imediata — é um dos sinais que não deve esperar a próxima revisão. Evite forçar o abastecimento além do desligamento automático do bico.',
+    attention: 'Atenção aos sinais', difficulty: 'Para ir além', sourceIds: ['kautex-fuel-tank'],
+  },
+  {
+    id: 'fuel-pump', system: 'fuel', name: 'Bomba de combustível', shortName: 'Bomba de combustível',
+    summary: 'Tira o combustível do tanque e entrega ao motor na pressão que o sistema de injeção precisa. Sem ela, o combustível não sai do lugar.',
+    function: 'Bombeia o combustível do tanque até o sistema de injeção, na pressão necessária para a queima correta. Em motores modernos, costuma entregar apenas o volume que o motor pede a cada momento.',
+    how: 'Um motor elétrico movimenta a bomba, geralmente instalada dentro ou perto do tanque. Um sensor de nível e um filtro costumam integrar o mesmo conjunto.',
+    analogy: 'Funciona como uma bomba pressurizada de um sistema hidráulico: preserva uma entrega constante para quem está do outro lado do circuito.',
+    signs: ['Dificuldade para dar partida', 'Perda de força sob exigência do motor', 'Ruído incomum vindo da região do tanque'],
+    care: 'Evite rodar com o tanque quase vazio com frequência, conforme o manual do veículo. Os sinais acima têm mais de uma causa possível; a avaliação da oficina evita trocar a bomba sem necessidade.',
+    attention: 'Atenção aos sinais', difficulty: 'Para ir além', sourceIds: ['bosch-fuel-pump'],
+  },
+  {
+    id: 'fuel-filter', system: 'fuel', name: 'Filtro de combustível', shortName: 'Filtro de combustível',
+    summary: 'Protege os bicos injetores retendo sujeira e água que podem estar presentes no combustível antes que cheguem ao sistema de injeção.',
+    function: 'Retém impurezas e água presentes no combustível antes que alcancem a bomba de alta pressão e os bicos injetores, protegendo esses componentes de desgaste abrasivo.',
+    how: 'O combustível atravessa um material filtrante que retém partículas; alguns projetos incluem separação de água do combustível.',
+    analogy: 'Cumpre um papel parecido ao do filtro de óleo, mas no circuito de combustível: uma peneira que protege o que vem depois dela.',
+    signs: ['Hesitação ou perda de força sob exigência', 'Partida mais difícil', 'Marcha lenta irregular'],
+    care: 'Troque no intervalo do manual, considerando a qualidade do combustível disponível. Sintomas que persistem após a troca pedem avaliação mais ampla do sistema de combustível.',
+    attention: 'Manutenção preventiva', difficulty: 'Essencial', sourceIds: ['mann-fuel-filter'],
+  },
+  {
+    id: 'fuel-injector', system: 'fuel', name: 'Bico injetor', shortName: 'Bico injetor',
+    summary: 'É quem pulveriza o combustível dentro do motor, no instante certo, para formar a mistura que a vela vai inflamar. Cada motor tem vários, um por cilindro.',
+    function: 'Injeta o combustível de forma controlada e pulverizada, formando uma mistura com o ar antes da combustão. O momento e a quantidade da injeção são controlados pelo sistema de gerenciamento do motor.',
+    how: 'Uma válvula eletricamente controlada abre por frações de segundo, várias vezes por segundo, liberando combustível pulverizado em um padrão de spray projetado para se misturar bem com o ar admitido.',
+    analogy: 'Pense em um borrifador de precisão que abre e fecha repetidamente, em um ritmo determinado pelo funcionamento do motor.',
+    signs: ['Falha ou trepidação do motor em marcha lenta', 'Funcionamento desigual entre cilindros', 'Consumo maior que o habitual'],
+    care: 'Combustível de qualidade e filtro em dia ajudam a proteger os bicos injetores. Irregularidades no funcionamento pedem avaliação técnica; não é recomendável tentar limpeza ou ajuste por conta própria.',
+    attention: 'Atenção aos sinais', difficulty: 'Para ir além', sourceIds: ['bosch-fuel-injector'],
+  },
 ];
 
 export const sources: { id: string; title: string; url: string; organization: string }[] = [
@@ -367,4 +408,8 @@ export const sources: { id: string; title: string; url: string; organization: st
   { id: 'rac-fuses', title: 'Como identificar um fusível queimado', url: 'https://www.rac.co.uk/drive/advice/car-maintenance/blown-car-fuse/', organization: 'RAC' },
   { id: 'timken-wheel-bearing', title: 'Sinais de desgaste do rolamento de roda', url: 'https://www.timken.com/resources/md17-symptoms-of-a-worn-wheel-hub-bearing/', organization: 'Timken' },
   { id: 'hella-coolant-reservoir', title: 'Função do reservatório de expansão do arrefecimento', url: 'https://www.hella.com/techworld/us/passenger-car-parts/thermal-management/ec-expansion-tanks/', organization: 'HELLA' },
+  { id: 'kautex-fuel-tank', title: 'Sistemas de combustível convencionais', url: 'https://www.kautex.com/en/mobility/fuel-systems/conventional-fuel-systems', organization: 'Kautex' },
+  { id: 'bosch-fuel-pump', title: 'Módulo de alimentação de combustível', url: 'https://www.bosch-mobility.com/en/solutions/pumps/fuel-supply-module/', organization: 'Bosch' },
+  { id: 'mann-fuel-filter', title: 'Função do filtro de combustível', url: 'https://www.mann-filter.com/us-en/parts/fuel-filter.html', organization: 'MANN-FILTER' },
+  { id: 'bosch-fuel-injector', title: 'Função do bico injetor', url: 'https://www.bosch-mobility.com/en/solutions/valves/fuel-injector-manifold/', organization: 'Bosch' },
 ];

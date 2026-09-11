@@ -9,10 +9,11 @@ Carbody (marca visível no app: "carbody.") é uma SPA em React 19 + TypeScript 
 ## Iniciativas ativas
 
 - **Realismo do modelo 3D** (`ADR-002`): `TASK-001` e `TASK-002` concluídas — ver `.agents/tasks/completed/`.
-- **Expansão do catálogo de peças** (`ADR-003`, 2026-09-11): 15 peças novas + um 7º sistema ("Combustível"), organizadas em duas trilhas paralelas por papel, todas em `.agents/tasks/backlog/`, nenhuma iniciada ainda:
-  - Trilha conteúdo (`content-catalog`): `TASK-003` (escape/direção — peças já modeladas em 3D), `TASK-004` (9 peças que completam sistemas existentes), `TASK-005` (sistema de combustível novo — `SystemId`, `systems`, `systemIcons`).
+- **Expansão do catálogo de peças** (`ADR-003`, 2026-09-11): 15 peças novas + um 7º sistema ("Combustível"), organizadas em duas trilhas paralelas por papel. **As duas trilhas concluíram suas 3 tasks cada** — ver `.agents/tasks/completed/`.
+  - Trilha conteúdo (`content-catalog`): `TASK-003`, `TASK-004`, `TASK-005` concluídas. Catálogo agora com 34 peças em 7 sistemas (`src/data/parts.ts`), todas as novas com `sourceIds` reais; `CONTENT_SOURCES.md` atualizado. `SystemId` ganhou `'fuel'`; `App.tsx`/`systemIcons` ganhou a chave `fuel: Fuel`.
   - Trilha geometria (`three-scene`): `TASK-006`, `TASK-007` e `TASK-008` concluídas — ver `.agents/tasks/completed/`. As 15 peças novas (escape/direção, as 9 que completam sistemas existentes, e as 4 do sistema de combustível) têm geometria em `CarScene.tsx` com `system`/`part` corretos, usando só os helpers já estabelecidos (`box`/`cyl`/`torus`/`tube`). Validado por `npx tsc -b --noEmit` + `npm run build` (sem erros) em cada task; verificação visual no navegador (clique em cada peça, opacidade por sistema, comparação das 3 visões, colisão de geometria) não foi feita — pendente para quando as duas trilhas convergirem.
-  - Ids de todas as peças novas fixados na tabela do `ADR-003` — qualquer implementação deve usá-los exatamente, para as duas trilhas convergirem sem peça órfã.
+  - **Pendência aberta que bloqueia `npm run build`**: `src/components/PartSketch.tsx` tem seu próprio `Record<SystemId, string>` (`primaryPart`), não previsto em `ADR-003`, que também exige a chave `fuel` — nenhuma das duas trilhas tinha esse arquivo no escopo autorizado (não é `parts.ts`/`CONTENT_SOURCES.md`/`App.tsx` da trilha conteúdo, nem `CarScene.tsx` da trilha geometria). Provavelmente escopo de `react-ui`. Sinalizado como tarefa de background (`task_c45bff02`) — ver `.agents/tasks/completed/TASK-005-conteudo-sistema-combustivel.md`, seção "Divergências", para o diagnóstico completo e a correção sugerida.
+  - Ids de todas as peças novas fixados na tabela do `ADR-003` — usados exatamente como especificado; nenhuma peça órfã entre as duas trilhas.
 
 ## Arquitetura vigente
 
