@@ -172,6 +172,8 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       }
       cyl(.076, .055, [x, .49, outer + side * .025], '#ced5d4', 'suspension', 'tire', 'z');
       cyl(.033, .06, [x, .49, outer + side * .03], '#687a80', 'suspension', 'tire', 'z');
+      // The wheel bearing rides just behind the hub cap, mostly hidden by it.
+      torus(.05, .012, [x, .49, outer + side * .018], '#5a6467', 'suspension', 'wheel-bearing');
       // Lug bolts, offset from the spokes so they read as a separate ring on the hub face.
       for (let i = 0; i < 5; i++) {
         const a = i * Math.PI * 2 / 5 + Math.PI / 5;
@@ -185,6 +187,8 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
         cyl(.009, .039, [x + Math.sin(a) * .19, .49 + Math.cos(a) * .19, discZ], '#768387', 'brakes', 'brake-disc', 'z');
       }
       box([.14, .27, .125], [x + .19, .54, discZ], COLORS.brakes, 'brakes', 'brake-pad', .045);
+      // The caliper housing wraps around the pad, anchored to the disc.
+      box([.19, .33, .17], [x + .21, .545, discZ], '#3a4144', 'brakes', 'brake-caliper', .05);
       // A wishbone, strut and wound coil on the inboard face of every wheel.
       tube([[x - .27, .39, side * .41], [x, .43, side * .84], [x + .25, .39, side * .42]], .036, '#88969c', 'suspension', 'shock-absorber');
       cyl(.04, .6, [x, .7, side * .78], '#b9c4c8', 'suspension', 'shock-absorber');
@@ -201,6 +205,8 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
         for (let i = 0; i < 5; i++) cyl(.084 - i * .005, .028, [x, .46, side * (.61 + i * .028)], '#414d50', 'transmission', 'cv-joint', 'z');
       }
     }
+    // Anti-roll bar linking the two front wishbones, mounted just below them.
+    tube([[-1.95, .39, -.41], [-1.95, .35, -.15], [-1.95, .35, .15], [-1.95, .39, .41]], .022, '#5c6b6e', 'suspension', 'sway-bar');
 
     // Cast engine block, copper cylinder head, plugs and individual intake runners.
     box([.94, .43, .69], [-1.49, .71, 0], '#aab4b4', 'engine', 'engine', .075);
@@ -211,6 +217,7 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       cyl(.081, .27, [x, .82, .335], '#c9cecc', 'engine', 'engine', 'y');
       cyl(.028, .085, [x, 1.207, .105], '#e4e3d9', 'engine', 'spark-plug');
       cyl(.017, .05, [x, 1.268, .105], '#586970', 'engine', 'spark-plug');
+      box([.045, .09, .045], [x, 1.335, .1], '#cbb35d', 'electrical', 'ignition-coil', .012);
       tube([[x, 1.28, .1], [x, 1.28, -.05], [-1.02, 1.22, -.23]], .013, '#374748', 'engine', 'spark-plug');
       tube([[x, .96, -.36], [x, .92, -.51], [x, .74, -.5], [-1.7, .57, -.36]], .036, '#b79e82', 'engine', 'engine');
       box([.025, .23, .012], [x, .73, .356], '#6e7a7a', 'engine', 'engine', .005);
@@ -226,6 +233,16 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       cyl(.039, .048, [x, y, .463], '#bdc5c3', 'engine', 'timing-belt', 'z');
     }
     tube([[-1.82, 1.06, .476], [-1.85, .88, .476], [-1.48, .58, .476], [-1.33, .61, .476], [-1.32, .72, .476], [-1.67, 1.05, .476], [-1.82, 1.06, .476]], .018, '#37413f', 'engine', 'timing-belt');
+    // Air filter housing, fed by a short intake duct running down to the manifold.
+    box([.3, .2, .28], [-1.6, .95, .55], '#8f9994', 'engine', 'air-filter', .05);
+    box([.24, .022, .22], [-1.6, 1.066, .55], '#4c5654', 'engine', 'air-filter', .02);
+    tube([[-1.6, .95, .55], [-1.75, .88, .42], [-1.84, .82, .335]], .033, '#5b6a6a', 'engine', 'air-filter');
+    // A serpentine accessory belt strung between the crank pulley and the alternator.
+    for (const [x, y, r] of [[-1.7, .56, .1], [-1.99, .64, .13]]) {
+      cyl(r, .035, [x, y, .53], '#5f7176', 'engine', 'accessory-belt', 'z');
+      torus(r, .015, [x, y, .55], '#30393a', 'engine', 'accessory-belt');
+    }
+    tube([[-1.7, .66, .55], [-1.99, .77, .55], [-2.09, .64, .55], [-1.99, .51, .55], [-1.6, .46, .55], [-1.7, .66, .55]], .014, '#2c3536', 'engine', 'accessory-belt');
 
     // The engine's power passes through the clutch housing, gearbox and front axle.
     cyl(.25, .22, [-.96, .65, .05], '#8aa4a7', 'transmission', 'clutch', 'x');
@@ -257,12 +274,18 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     tube([[-2.13, .98, -.39], [-1.98, 1.02, -.51], [-1.8, .98, -.45], [-1.82, .81, -.32]], .043, '#547c86', 'cooling', 'thermostat');
     tube([[-2.12, .51, .39], [-1.98, .48, .48], [-1.8, .5, .45], [-1.77, .62, .32]], .045, '#547c86', 'cooling', 'water-pump');
     cyl(.094, .11, [-1.94, .64, -.38], '#7898a2', 'cooling', 'water-pump', 'x');
+    // A small, semi-transparent expansion tank off the top of the radiator core.
+    box([.13, .16, .11], [-1.98, 1.05, .28], '#cfece2', 'cooling', 'coolant-reservoir', .03, { opacity: .55 });
+    cyl(.045, .02, [-1.98, 1.135, .28], '#5f7d72', 'cooling', 'coolant-reservoir');
 
     // Electrical components and routes. Yellow is reserved for electrical energy.
     box([.47, .28, .31], [-1.26, .9, -.68], '#c0a664', 'electrical', 'battery', .035);
     box([.48, .045, .32], [-1.26, 1.056, -.68], '#4e5550', 'electrical', 'battery', .012);
     for (const x of [-1.41, -1.1]) cyl(.028, .045, [x, 1.09, -.68], x < -1.2 ? '#ca7150' : '#a6aea6', 'electrical', 'battery');
     tube([[-1.41, 1.12, -.68], [-1.53, 1.12, -.64], [-1.73, 1.04, -.61], [-1.94, .69, -.43]], .014, '#a8764e', 'electrical', 'battery');
+    // Fuse and relay box, mounted just above the battery.
+    box([.14, .1, .16], [-1.26, 1.15, -.68], '#3d4340', 'electrical', 'fuses', .015);
+    box([.12, .012, .14], [-1.26, 1.203, -.68], '#232826', 'electrical', 'fuses', .006);
     cyl(.113, .22, [-1.99, .64, .4], '#baa779', 'electrical', 'alternator', 'z');
     for (let i = 0; i < 6; i++) cyl(.115, .012, [-1.99, .64, .31 + i * .033], '#8a9389', 'electrical', 'alternator', 'z');
     cyl(.069, .2, [-1.03, .49, -.3], '#b89e62', 'electrical', 'starter', 'x');
@@ -284,6 +307,9 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     box([.13, .49, 1.34], [1.47, 1, 0], '#a8b9b9', '', '', .06);
     for (const z of [-.46, .46]) box([.12, .14, .3], [1.5, 1.33, z], '#839c9f', '', '', .045);
     box([.56, .23, .17], [.1, .6, 0], '#778f93', '', '', .035);
+    // A generic parking-brake lever, tucked into the console just behind the gear stick.
+    box([.09, .04, .09], [.14, .72, .11], '#3a4244', 'brakes', 'parking-brake', .015);
+    cyl(.014, .16, [.14, .78, .13], '#4a5456', 'brakes', 'parking-brake', 'y', { rotation: [-.35, 0, 0] });
     const steering = torus(.17, .018, [-.4, 1.18, .47], '#455e63', 'suspension', 'steering', { rotation: [0, Math.PI / 2 - .5, 0] });
     tube([[-.43, 1.17, .47], [-.71, .99, .47]], .03, '#849b9e');
     for (let i = 0; i < 3; i++) {
