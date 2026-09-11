@@ -2,6 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import './car-scene.css';
 
 type View = 'perspective' | 'side' | 'top';
@@ -346,6 +351,16 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     floor.receiveShadow = true;
     scene.add(floor);
 
+    // Procedural environment, baked locally via PMREM (no HDR download — keeps the
+    // "no runtime network calls" constraint) so metal, glass and rubber reflect
+    // something instead of rendering as flat PBR color.
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    const roomEnvironment = new RoomEnvironment();
+    const envRenderTarget = pmremGenerator.fromScene(roomEnvironment, .04);
+    scene.environment = envRenderTarget.texture;
+    roomEnvironment.dispose();
+    pmremGenerator.dispose();
+
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
     let pointerDown = { x: 0, y: 0 };
@@ -383,6 +398,19 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       zoom(amount) { camera.zoom = THREE.MathUtils.clamp(camera.zoom + amount * .13, .7, 1.75); camera.updateProjectionMatrix(); },
     };
     appearance();
+
+    // A light ambient-occlusion pass gives contact shadow to reentrances (engine bay,
+    // wheel wells) that direct lighting alone leaves flat. OutputPass carries the
+    // renderer's tone mapping/color space to the end of the chain — it must stay last.
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    const gtaoPass = new GTAOPass(scene, camera, 1, 1);
+    gtaoPass.updateGtaoMaterial({ radius: .3, distanceExponent: 1, thickness: 1, scale: 1 });
+    gtaoPass.blendIntensity = .65; // Subtle: a hint of depth, not a heavy darkening pass.
+    composer.addPass(gtaoPass);
+    const outputPass = new OutputPass();
+    composer.addPass(outputPass);
+
     let width = 1;
     let height = 1;
     // Read each label once after it mounts or the viewport/font changes. Orbiting
@@ -396,6 +424,7 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       clearPinSizes();
       if (!width || !height) return;
       renderer.setSize(width, height);
+      composer.setSize(width, height);
       const aspect = width / height;
       const vertical = aspect < 1.25 ? 5.8 / aspect : 4.05;
       camera.left = -vertical * aspect / 2;
@@ -487,7 +516,7 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
         button.style.setProperty('--pin-angle', `${Math.atan2(py - y, px - x)}rad`);
         button.style.visibility = 'visible';
       }
-      renderer.render(scene, camera);
+      composer.render();
     }
     render();
     setReady(true);
@@ -513,6 +542,10 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       });
       geometries.forEach(geometry => geometry.dispose());
       materials.forEach(material => material.dispose());
+      envRenderTarget.dispose();
+      gtaoPass.dispose();
+      outputPass.dispose();
+      composer.dispose();
       renderer.dispose();
       renderer.domElement.remove();
       control.current = null;

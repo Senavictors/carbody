@@ -8,7 +8,7 @@ Carbody (marca visível no app: "carbody.") é uma SPA em React 19 + TypeScript 
 
 ## Iniciativas ativas
 
-- Nenhuma task formal em andamento no momento. O projeto foi construído, revisado visualmente, publicado no GitHub e teve a marca renomeada de "Por dentro" para "Carbody" — ver `.agents/decisions/` para decisões relevantes conforme forem registradas.
+- **Realismo do modelo 3D** (`ADR-002`): `TASK-001` (iluminação física — ambiente procedural via PMREM + AO leve via `GTAOPass`) implementada e validada em `.agents/tasks/active/TASK-001-iluminacao-fisica-e-reflexos.md` — pendente apenas checagem manual de memória (CA-06) antes de mover para `completed/` via `bootstrap-complete`. `TASK-002` (mais detalhe geométrico) segue em `.agents/tasks/backlog/`, ainda não iniciada.
 
 ## Arquitetura vigente
 
