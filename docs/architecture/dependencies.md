@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: src/App.tsx, src/components/, src/data/parts.ts
-ultima-revisao: bootstrap-init, 2026-09-11
+ultima-revisao: ADR-003 (TASK-003 a TASK-008), 2026-09-11
 ---
 
 # Dependências
@@ -20,6 +20,8 @@ App.tsx  →  dados estáticos (src/data/parts.ts)
 - **Proibido**: `src/data/parts.ts` importar de `src/components/` ou de `App.tsx` — o catálogo é dado puro; não pode depender da UI.
 - **Proibido**: `CarScene.tsx` e `MechanismLab.tsx` importarem um do outro — são visualizações independentes, cada uma orquestrada só por `App.tsx`.
 - **Proibido**: introduzir chamada de rede/API em qualquer camada — o projeto é deliberadamente local, sem backend (Constituição, `.agents/test-onboarding.md`).
+
+A expansão do catálogo (`ADR-003`, 34 peças/7 sistemas, incluindo o sistema `fuel` novo) seguiu essas mesmas regras sem exceção: nenhuma peça nova em `parts.ts` importa de `components/`, e a geometria nova em `CarScene.tsx` não importa de `parts.ts` (a associação entre os dois lados é só por id de string, combinado por convenção — ver `docs/modules/car-scene.md`).
 
 ## Entre containers
 

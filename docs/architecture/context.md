@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: PRODUCT.md, src/App.tsx, package.json
-ultima-revisao: bootstrap-init, 2026-09-11
+ultima-revisao: ADR-003, 2026-09-11
 ---
 
 # Contexto do Sistema
@@ -20,7 +20,7 @@ Carbody é uma aplicação web educativa, de página única, que ensina o essenc
 ## Fronteiras do sistema (atores/sistemas externos)
 
 - **Nenhum sistema externo é chamado em tempo de execução.** A aplicação não faz nenhuma requisição de rede além de carregar seus próprios arquivos estáticos (JS/CSS/fontes) e as fontes web do Google Fonts empacotadas localmente via `@fontsource`.
-- **Fontes citadas em `CONTENT_SOURCES.md`** (DENSO, Gates, MANN-FILTER, The AA, Brembo, Monroe, Michelin, VARTA, HELLA, GKN, Nakata, AAA) são apenas referências editoriais usadas para escrever o conteúdo — não são integrações, não há chamada de API para elas.
+- **Fontes citadas em `CONTENT_SOURCES.md`** (DENSO, Gates, MANN-FILTER, The AA, Brembo, Monroe, Michelin, VARTA, HELLA, GKN, Nakata, AAA, e — desde `ADR-003` — Walker, ZF, RAC, Timken, Bosch, Kautex) são apenas referências editoriais usadas para escrever o conteúdo — não são integrações, não há chamada de API para elas.
 - **Banco de dados**: não há. O único dado persistido é a lista de peças marcadas como "aprendidas" pelo usuário, em `localStorage` (chave `por-dentro:learned:v1`), tratado como "externo" ao processo React apenas no sentido de sobreviver a recarregamentos de página — vive inteiramente no navegador do próprio usuário.
 
 ## Fora do escopo deste contexto

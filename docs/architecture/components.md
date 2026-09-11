@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: src/App.tsx, src/components/, src/data/parts.ts
-ultima-revisao: TASK-001/TASK-002, 2026-09-11
+ultima-revisao: ADR-003 (TASK-003 a TASK-008), 2026-09-11
 ---
 
 # Componentes
@@ -10,7 +10,7 @@ Componentes internos relevantes por camada. Carbody não tem camadas de backend/
 
 ## Camada de entrada/UI
 
-- **`App.tsx`** — casca da aplicação inteira: navegação entre páginas via estado local (`page`), busca (`normalize()` + filtro), progresso do usuário, toasts, menu mobile. Compõe `CarScene`, `MechanismLab` e `PartSketch`.
+- **`App.tsx`** — casca da aplicação inteira: navegação entre páginas via estado local (`page`), busca (`normalize()` + filtro), progresso do usuário, toasts, menu mobile. Compõe `CarScene` e `MechanismLab` via `React.lazy`/`Suspense` (code-splitting — cada um só carrega quando a página correspondente abre) e `PartSketch` diretamente.
 
 ## Camada de visualização — cena 3D
 
@@ -23,7 +23,7 @@ Componentes internos relevantes por camada. Carbody não tem camadas de backend/
 
 ## Camada de dados/conteúdo
 
-- **`src/data/parts.ts`** — catálogo estático: `systems` (6 sistemas), `parts` (19 peças), `sources` (fontes citadas). Dado puro, sem lógica de UI. Ver `.claude/agents/content-catalog.md`.
+- **`src/data/parts.ts`** — catálogo estático: `systems` (7 sistemas, incluindo `fuel` desde `ADR-003`), `parts` (34 peças), `sources` (fontes citadas). Dado puro, sem lógica de UI. Ver `.claude/agents/content-catalog.md`.
 
 ## Persistência
 

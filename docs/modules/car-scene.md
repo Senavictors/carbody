@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: src/components/CarScene.tsx
-ultima-revisao: TASK-001/TASK-002, 2026-09-11
+ultima-revisao: TASK-006/TASK-007/TASK-008 + correção de pins, 2026-09-11
 ---
 
 # Módulo CarScene
@@ -21,7 +21,8 @@ Renderiza a maquete 3D interativa do carro didático (React + Three.js) usada na
 - **Pipeline de render** (desde a `TASK-001`): a cena não é mais desenhada com `renderer.render(scene, camera)` direto — passa por um `EffectComposer` com três passes, nesta ordem: `RenderPass` (desenha a cena normalmente) → `GTAOPass` (ambient occlusion leve, `blendIntensity = .65`, calibrado para sombra de contato sutil, não escurecimento forte) → `OutputPass` (aplica o tone mapping/color space configurados no `renderer` — deve ser sempre o último pass).
 - **Ambiente procedural**: `scene.environment` é um mapa gerado localmente via `THREE.PMREMGenerator` + `RoomEnvironment` (`three/addons/environments/RoomEnvironment.js`), sem nenhum HDR baixado por rede — dá reflexo real a metais/vidros/borrachas que usam `MeshStandardMaterial`. Gerado uma única vez no mount; o `RoomEnvironment`/`PMREMGenerator` de entrada são descartados logo após o bake, mas o `envRenderTarget` resultante precisa sobreviver (descartado só no cleanup do componente).
 - **Elementos decorativos vs. peças do catálogo**: nem todo mesh é uma "peça" selecionável. Um mesh criado com `system` preenchido e `part` vazio (ex.: os parafusos de roda e a mangueira decorativa da `TASK-002`) participa da lógica de opacidade por sistema (`appearance()`), mas não entra em `pickables` e não pode ser realçado individualmente — é o padrão para detalhe visual que não corresponde a uma entrada do catálogo (`src/data/parts.ts`).
-- **Pins HTML**: `PINS` é uma lista fixa de posições 3D com rótulo e sistema. A cada frame, `render()` projeta cada pino para coordenadas de tela (`Vector3.project`) e resolve sobreposição entre rótulos com uma busca gulosa limitada (não é layout do DOM/CSS).
+- **Pins HTML**: `PINS` é uma lista fixa de posições 3D com rótulo e sistema. A cada frame, `render()` projeta cada pino para coordenadas de tela (`Vector3.project`) e resolve sobreposição entre rótulos com uma busca gulosa limitada (não é layout do DOM/CSS). Cada sistema mostra no máximo 3 pins por vez (`shownPins`); um pin extra num sistema que já tem 3 não aparece por padrão, mas a peça continua clicável direto na malha.
+- **Peças novas do catálogo expandido (`ADR-003`)**: 15 peças foram adicionadas (escape, direção, 9 que completam sistemas existentes, e as 4 do sistema `fuel` novo), todas seguindo os mesmos helpers e o mesmo padrão `system`/`part`. O sistema `fuel` (Combustível) e o sistema `electrical` ganharam pins dedicados (`fuel-tank`, `fuel-pump`, `fuel-injector`, `ignition-coil`) para não ficarem sem nenhum rótulo flutuante.
 
 ## Dependências
 
@@ -58,3 +59,7 @@ Nenhum automatizado (o projeto não tem suíte de testes — ver `AGENTS.md`). V
 - `ADR-002` (aumento de realismo do modelo 3D) — decisão de combinar iluminação física + mais detalhe geométrico, com foco desktop.
 - `TASK-001` — implementou o ambiente procedural e o pipeline `EffectComposer`/AO.
 - `TASK-002` — implementou o aumento de segmentos de geometria e os elementos decorativos (parafusos, mangueira).
+- `ADR-003` (expansão do catálogo de peças) — decisão de implementar conteúdo e geometria em trilhas paralelas por papel.
+- `TASK-006` — marcou escape e direção (já modelados) como peças clicáveis.
+- `TASK-007` — modelou as 9 peças que completam sistemas existentes.
+- `TASK-008` — modelou o sistema de combustível (tanque, bomba, filtro, injetores).
