@@ -1,4 +1,4 @@
-# Por dentro
+# Carbody
 
 <!-- impeccable:product-schema 1 -->
 
@@ -26,7 +26,7 @@ Hipóteses de implementação: carro didático genérico a combustão com câmbi
 
 ## Brand Commitments
 
-Minimalismo, explicações acessíveis e primazia do visual. Nome editorial proposto: Por dentro.
+Minimalismo, explicações acessíveis e primazia do visual. Nome editorial: Carbody.
 
 ## Product Principles
 

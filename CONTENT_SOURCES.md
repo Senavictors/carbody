@@ -1,4 +1,4 @@
-# Conteúdo educativo do Por dentro
+# Conteúdo educativo do Carbody
 
 Pesquisa e redação: 11 de setembro de 2026. O catálogo está em `src/data/parts.ts`, com 19 peças, seis sistemas e referências vinculadas a cada peça por `sourceIds`.
 

@@ -28,7 +28,7 @@ function loadLearned(): string[] {
 const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 function Brand({ compact = false }: { compact?: boolean }) {
-  return <span className={`brand ${compact ? 'brand-compact' : ''}`}><span className="brand-symbol"><Box size={25} strokeWidth={1.6} /></span><span>por dentro<span className="brand-period">.</span><small>mecânica descomplicada</small></span></span>;
+  return <span className={`brand ${compact ? 'brand-compact' : ''}`}><span className="brand-symbol"><Box size={25} strokeWidth={1.6} /></span><span>carbody<span className="brand-period">.</span><small>mecânica descomplicada</small></span></span>;
 }
 
 function PartDetail({ part, learned, onLearn, onMechanism }: { part: Part; learned: boolean; onLearn: () => void; onMechanism: () => void }) {
@@ -85,7 +85,7 @@ function App() {
     return()=>window.removeEventListener('keydown',keydown);
   },[]);
   useEffect(()=>{if(!toast)return;const timer=setTimeout(()=>setToast(''),3300);return()=>clearTimeout(timer);},[toast]);
-  useEffect(()=>{document.title=`${navigation.find(item=>item.id===page)?.title} — Por dentro`;},[page]);
+  useEffect(()=>{document.title=`${navigation.find(item=>item.id===page)?.title} — Carbody`;},[page]);
   useEffect(()=>{
     if(!detailRequest || !window.matchMedia('(max-width: 1050px)').matches)return;
     document.querySelector('.part-detail')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
@@ -124,14 +124,14 @@ function App() {
     <a className="skip-link" href="#main-content">Pular para o conteúdo</a>
     {menuOpen&&<button className="sidebar-scrim" aria-label="Fechar menu" onClick={()=>setMenuOpen(false)}/>}
     <aside ref={sidebarRef} className={`sidebar ${menuOpen?'is-open':''}`} aria-label={menuOpen?'Menu principal':undefined} role={menuOpen?'dialog':undefined} aria-modal={menuOpen?true:undefined}>
-      <button className="brand-button" onClick={()=>navigate('explore')} aria-label="Por dentro, página inicial"><Brand/></button>
+      <button className="brand-button" onClick={()=>navigate('explore')} aria-label="Carbody, página inicial"><Brand/></button>
       <button className="close-menu icon-button" onClick={()=>setMenuOpen(false)} aria-label="Fechar menu"><X size={21}/></button>
       <nav aria-label="Navegação principal" className="main-nav">{navigation.map(({id,title,icon:Icon})=><button key={id} className={`nav-item ${page===id?'active':''}`} aria-current={page===id?'page':undefined} onClick={()=>navigate(id)}><Icon size={19}/><span>{title}</span>{id==='progress'&&learned.length>0&&<span className="nav-count">{learned.length}</span>}{page===id&&<span className="nav-active-dot"/>}</button>)}</nav>
       <div className="sidebar-systems"><h2>Sistemas do carro</h2><nav aria-label="Explorar por sistema">{systems.filter(system=>system.id!=='all').map(system=>{const Icon=systemIcons[system.id];return <button key={system.id} className={`system-nav system-${system.id} ${page==='explore'&&activeSystem===system.id?'selected':''}`} onClick={()=>selectSystem(system.id)}><Icon size={17}/><span>{system.name}</span><span className="system-dot"/></button>;})}</nav></div>
       <div className="sidebar-bottom"><div className="sidebar-note"><span className="note-icon"><GraduationCap size={24} strokeWidth={1.5}/></span><h3>Curiosidade é o primeiro passo.</h3><p>Você não precisa ser mecânico para entender seu carro.</p></div><span className="sidebar-footer">Feito para aprender, sem complicar.</span></div>
     </aside>
     <div className="workspace">
-      <header className="topbar"><div className="topbar-left"><button className="mobile-menu icon-button" onClick={()=>setMenuOpen(true)} aria-label="Abrir menu"><Menu size={22}/></button><span className="topbar-context">Seu guia de mecânica <ChevronRight size={14}/> <strong>{navigation.find(item=>item.id===page)?.title}</strong></span><span className="mobile-brand">por dentro<span>.</span></span></div><form className="search-form" role="search" onSubmit={event=>{event.preventDefault();setPage('parts');}}><Search size={17}/><input ref={searchRef} value={query} onChange={event=>{setQuery(event.target.value);setPage('parts');setLibraryFilter('all');}} placeholder="Buscar uma peça..." aria-label="Buscar uma peça ou sintoma"/>{query?<button type="button" className="clear-search" aria-label="Limpar busca" onClick={()=>setQuery('')}><X size={14}/></button>:<kbd>Ctrl K</kbd>}</form><div className="essential-label"><span/>Guia essencial</div></header>
+      <header className="topbar"><div className="topbar-left"><button className="mobile-menu icon-button" onClick={()=>setMenuOpen(true)} aria-label="Abrir menu"><Menu size={22}/></button><span className="topbar-context">Seu guia de mecânica <ChevronRight size={14}/> <strong>{navigation.find(item=>item.id===page)?.title}</strong></span><span className="mobile-brand">carbody<span>.</span></span></div><form className="search-form" role="search" onSubmit={event=>{event.preventDefault();setPage('parts');}}><Search size={17}/><input ref={searchRef} value={query} onChange={event=>{setQuery(event.target.value);setPage('parts');setLibraryFilter('all');}} placeholder="Buscar uma peça..." aria-label="Buscar uma peça ou sintoma"/>{query?<button type="button" className="clear-search" aria-label="Limpar busca" onClick={()=>setQuery('')}><X size={14}/></button>:<kbd>Ctrl K</kbd>}</form><div className="essential-label"><span/>Guia essencial</div></header>
       <main id="main-content" className={`main-content page-${page}`}>
         {page==='explore'&&<>
           <div className="page-heading"><div><h1>Entenda o que te move<span>.</span></h1><p>Seu carro, peça por peça. Explore, descubra e faça as conexões.</p></div><button className="subtle-button" onClick={()=>openMechanism('engine')}><Play size={14}/> Como tudo funciona <ArrowUpRight size={15}/></button></div>
