@@ -208,6 +208,15 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     // Anti-roll bar linking the two front wishbones, mounted just below them.
     tube([[-1.95, .39, -.41], [-1.95, .35, -.15], [-1.95, .35, .15], [-1.95, .39, .41]], .022, '#5c6b6e', 'suspension', 'sway-bar');
 
+    // Fuel system: a flattened tank recessed under the rear floor, ahead of the rear axle
+    // and clear of the exhaust muffler (which occupies the opposite, negative-z side here).
+    box([.46, .16, .48], [1.3, .35, .34], '#8a9088', 'fuel', 'fuel-tank', .04);
+    cyl(.04, .02, [1.3, .435, .34], '#4d524b', 'fuel', 'fuel-tank');
+    cyl(.055, .1, [1.15, .47, .25], '#6d7a72', 'fuel', 'fuel-pump');
+    // A supply line runs forward along the frame rail, through an inline filter, to the engine.
+    tube([[1.15, .38, .5], [.4, .34, .6], [-.6, .32, .62], [-1.3, .38, .55], [-1.55, .55, .5]], .02, '#4a534d', 'fuel', 'fuel-filter');
+    cyl(.045, .12, [-.1, .33, .61], '#5e685f', 'fuel', 'fuel-filter', 'x');
+
     // Cast engine block, copper cylinder head, plugs and individual intake runners.
     box([.94, .43, .69], [-1.49, .71, 0], '#aab4b4', 'engine', 'engine', .075);
     box([1.01, .25, .76], [-1.49, 1.01, 0], COLORS.engine, 'engine', 'engine', .085);
@@ -215,6 +224,8 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     for (let i = 0; i < 4; i++) {
       const x = -1.84 + i * .232;
       cyl(.081, .27, [x, .82, .335], '#c9cecc', 'engine', 'engine', 'y');
+      // One injector per cylinder, mounted at the outer tip of its intake runner.
+      cyl(.022, .1, [x, .82, .46], '#6d7a72', 'fuel', 'fuel-injector', 'z');
       cyl(.028, .085, [x, 1.207, .105], '#e4e3d9', 'engine', 'spark-plug');
       cyl(.017, .05, [x, 1.268, .105], '#586970', 'engine', 'spark-plug');
       box([.045, .09, .045], [x, 1.335, .1], '#cbb35d', 'electrical', 'ignition-coil', .012);
