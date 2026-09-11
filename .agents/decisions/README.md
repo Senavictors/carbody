@@ -4,6 +4,8 @@ Mantido automaticamente por `bootstrap-audit` a cada execução — não edite e
 
 | ID | Título | Status | Data | Arquivo |
 |---|---|---|---|---|
+| ADR-001 | Versionar o hub de agentes (.agents/, roteadores, docs/) no repositório público | accepted | 2026-09-11 | `ADR-001-versionamento-do-hub-de-agentes.md` |
+| ADR-002 | Aumentar o realismo do modelo 3D via iluminação física + mais detalhe geométrico (foco desktop) | accepted | 2026-09-11 | `ADR-002-realismo-modelo-3d-iluminacao-e-geometria.md` |
 <!-- bootstrap-audit preenche uma linha por arquivo em .agents/decisions/*.md, lendo o frontmatter (id, title, status, date). Não remova este comentário — é o marcador de onde a regeneração insere as linhas. -->
 
 ## Status possíveis
