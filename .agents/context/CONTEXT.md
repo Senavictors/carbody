@@ -15,7 +15,11 @@ Carbody (marca visível no app: "carbody.") é uma SPA em React 19 + TypeScript 
   - **Bloqueador de build encontrado pela trilha conteúdo e corrigido pela sessão principal**: `src/components/PartSketch.tsx` tinha seu próprio `Record<SystemId, string>` (`primaryPart`), não previsto em `ADR-003`, que também exigia a chave `fuel`. Corrigido adicionando `fuel: 'fuel-tank'` (mesmo padrão de `engine: 'engine'`, cai no ícone genérico do `default`). `npm run build` confirmado limpo.
   - Verificação visual final feita pela sessão principal no navegador: sistema "Combustível" navegável com ícone; conteúdo das 15 peças novas correto na biblioteca; clique direto confirmado para `exhaust` (raycasting funcionando com a geometria nova); opacidade por sistema confirmada em 5 abas; 3 visões (perspectiva/lateral/superior) sem colisão aparente entre tanque de combustível, escape e eixo traseiro. Clique direto em `steering` especificamente não foi confirmado (limitação da ferramenta de captura desta sessão em acertar um alvo fino em coordenadas exatas), mas o código segue o mesmo padrão já confirmado para `exhaust`.
   - Ids de todas as peças novas fixados na tabela do `ADR-003` — usados exatamente como especificado; nenhuma peça órfã entre as duas trilhas.
-  - **Atenção**: uma tarefa de background (`task_c45bff02`) sugerindo a mesma correção de `PartSketch.tsx` foi iniciada pelo usuário como sessão separada antes da correção acima ser feita — pode estar fazendo trabalho duplicado; vale conferir/encerrar essa sessão.
+- **Próximas features** (`ADR-004` a `ADR-007`, 2026-09-13): 4 features planejadas a partir de uma sessão de brainstorm, todas em `.agents/tasks/backlog/`, nenhuma iniciada:
+  - `ADR-004` — mais 4 mecanismos animados no `MechanismLab` (Freios, Arrefecimento, Suspensão, Elétrica), estendendo o `Mode` existente. Tasks: `TASK-009` (Freios+Arrefecimento), `TASK-010` (Suspensão+Elétrica).
+  - `ADR-005` — animar peças do modelo 3D condicionadas ao sistema selecionado (ventoinha, rodas, motor). Task: `TASK-011` — a de maior risco técnico das 4, pois exige agrupar as peças da roda num `THREE.Group` (hoje construídas soltas), algo que a cena 3D nunca precisou fazer.
+  - `ADR-006` — glossário de termos técnicos, página própria (sem integrar com a busca `Ctrl K` existente). Tasks: `TASK-012` (conteúdo, `content-catalog`), `TASK-013` (página, `react-ui`).
+  - `ADR-007` — comparação visual "desgaste vs. novo", campo novo em `Part` + SVG em `PartSketch.tsx`, começando por 5 peças (pneu, pastilha de freio, disco de freio, correia dentada, mola) — escopo reduzido decidido durante o planejamento (não escolhido explicitamente pelo usuário, sinalizado no próprio `ADR-007`). Tasks: `TASK-014` (conteúdo), `TASK-015` (UI).
 
 ## Arquitetura vigente
 
@@ -37,7 +41,7 @@ Ver `docs/architecture/` para a visão completa (contexto, containers, component
 
 ## Decisões recentes
 
-Ver `.agents/decisions/` (índice em `README.md`): `ADR-001` (versionar o hub de agentes no repositório público), `ADR-002` (realismo do modelo 3D — concluída), `ADR-003` (expansão do catálogo de peças — concluída).
+Ver `.agents/decisions/` (índice em `README.md`): `ADR-001` (versionar o hub de agentes), `ADR-002` (realismo do modelo 3D — concluída), `ADR-003` (expansão do catálogo — concluída), `ADR-004` a `ADR-007` (próximas features — planejadas, ainda não implementadas).
 
 ## Riscos atuais
 
