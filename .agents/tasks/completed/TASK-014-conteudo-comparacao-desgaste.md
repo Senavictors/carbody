@@ -127,5 +127,14 @@ peças sem wear: 29 (esperado 29)
 - CA-03: cada uma das 15 frases foi escrita a partir de um campo já existente da peça. Rastreamento: pneu — `how` ("sulcos ajudam a escoar água") e `signs` ("desgaste irregular ou indicador atingido"); pastilha — `how` ("o material de atrito se consome com o uso") e `signs` ("aviso de desgaste, se equipado"); disco — `signs` ("sulcos ou espessura insuficiente na inspeção"); correia — `summary` ("pode se deteriorar sem dar um aviso claro"); mola — `signs` ("carro mais baixo de um lado", "dano identificado na inspeção"). Os três `note` reproduzem a ressalva do `care` da própria peça.
 - Tom: o script também varre o texto novo atrás de formulações de diagnóstico ("significa que", "comprova", "prova que", "precisa trocar", "sempre indica") — nenhuma encontrada.
 
+## Adendo (2026-09-13, depois da conclusão)
+
+A divergência registrada acima sobre a correia dentada foi levada ao usuário, que decidiu **trocá-la pela vela de ignição** no subconjunto inicial. Aplicado na mesma sessão:
+
+- `wear` removido de `timing-belt` e adicionado a `spark-plug`.
+- Emenda registrada no `ADR-007` (seção "Emenda (2026-09-13)"), em `CONTENT_SOURCES.md` e no `CONTEXT.md`.
+- Subconjunto final: `tire`, `brake-pad`, `brake-disc`, `spark-plug`, `spring`. Continuam 5 peças com o campo e 29 sem.
+- O texto da vela se apoia no `how` da própria peça (a distância que a eletricidade atravessa entre os eletrodos) e em `denso-spark-wear`, única fonte do catálogo dedicada a aparência de peça gasta — o que sustenta a menção a depósitos na ponta.
+
 ## Handoff
 Não aplicável — a task foi executada e verificada em uma única sessão.

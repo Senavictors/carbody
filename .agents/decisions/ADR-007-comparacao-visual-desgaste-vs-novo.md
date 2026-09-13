@@ -46,6 +46,16 @@ Mais realista, mas foge do estilo 100% vetorial minimalista já estabelecido (`P
 
 `npm run build` sem erros; verificação visual do toggle nas peças do subconjunto inicial; confirmar que uma peça sem `wear` não quebra nem mostra um controle vazio/quebrado.
 
+## Emenda (2026-09-13) — vela de ignição no lugar da correia dentada
+
+Durante a `TASK-014` ficou evidente que a correia dentada não cabe numa comparação visual: o catálogo diz que ela "pode se deteriorar sem dar um aviso claro" e que não se deve esperar sintoma para trocá-la, enquanto uma comparação "em bom estado × com uso" sugere justamente que dá para julgar pela aparência. O texto do campo `wear` foi escrito para desfazer isso, mas a ilustração prevista para a `TASK-015` continuaria podendo ensinar o contrário.
+
+**Decisão do usuário, tomada explicitamente após a `TASK-014`**: a correia dentada sai do subconjunto inicial e entra a vela de ignição. O subconjunto passa a ser pneu, pastilha de freio, disco de freio, **vela de ignição** e mola.
+
+A vela é o caso mais seguro do catálogo para esta feature: seu campo `how` já descreve a distância que a eletricidade atravessa entre os eletrodos, e o desgaste é exatamente o aumento gradual dessa distância — visual, didático e diretamente derivável do texto existente. É também a única peça do catálogo com uma fonte dedicada a aparência de desgaste (`denso-spark-wear`).
+
+A correia dentada continua no catálogo normalmente, apenas sem o campo `wear` — ausência que é o caso normal para 29 das 34 peças.
+
 ## Revisão
 
 Reavaliar a extensão para as demais peças do catálogo como trabalho de conteúdo incremental, task por task, não nesta ADR.

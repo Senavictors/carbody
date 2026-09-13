@@ -54,6 +54,11 @@ export const parts: Part[] = [
     signs: ['Falhas ou engasgos ao acelerar', 'Partida mais difícil', 'Consumo diferente do habitual'],
     care: 'Confira o modelo de vela e o prazo de troca no manual. Falhas também podem vir da bobina, da alimentação ou de outros componentes; a avaliação evita trocas por tentativa.',
     attention: 'Desgaste natural', difficulty: 'Essencial', sourceIds: ['denso-spark', 'denso-spark-wear'],
+    wear: {
+      normal: 'Eletrodos com o perfil íntegro e a distância entre eles dentro da especificação da vela.',
+      worn: 'Os eletrodos se consomem um pouco a cada faísca, e a distância que a eletricidade precisa atravessar aumenta aos poucos. A ponta também pode acumular depósitos da queima.',
+      note: 'Esse aumento é gradual e medido na inspeção, não julgado a olho. Falhas ao acelerar também podem vir da bobina ou da alimentação — por isso a avaliação evita troca por tentativa.',
+    },
   },
   {
     id: 'timing-belt', system: 'engine', name: 'Correia dentada', shortName: 'Correia dentada',
@@ -64,11 +69,6 @@ export const parts: Part[] = [
     signs: ['Troca vencida por tempo ou quilometragem', 'Histórico de substituição desconhecido', 'Ruído incomum na região da distribuição'],
     care: 'Não espere um sintoma para substituir a correia. Use o prazo do fabricante, considerando tempo e quilometragem, e peça a avaliação dos tensores e componentes associados.',
     attention: 'Manutenção preventiva', difficulty: 'Essencial', sourceIds: ['gates-timing', 'aa-breakdowns'],
-    wear: {
-      normal: 'Dentes regulares e bem formados, encaixando nas polias, com a superfície íntegra.',
-      worn: 'Com o tempo a borracha pode ressecar, trincar ou ter o perfil dos dentes alterado — mas nada disso é garantido: a correia pode chegar ao fim do prazo ainda com boa aparência.',
-      note: 'Esta é a peça em que a aparência menos ajuda. A correia dentada é trocada pelo prazo do fabricante, considerando tempo e quilometragem, e não pelo que se vê.',
-    },
   },
   {
     id: 'oil-filter', system: 'engine', name: 'Filtro de óleo', shortName: 'Filtro de óleo',

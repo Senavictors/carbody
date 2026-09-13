@@ -51,13 +51,15 @@ O cadastro exportado mantém os links complementares. Propaganda de produto, pra
 
 ## Comparação "em bom estado" e "com uso" (campo `wear`)
 
-Adicionada em 13 de setembro de 2026 (`ADR-007`, `TASK-014`). Campo opcional em `Part`, com três textos: `normal` (o que se vê numa peça em bom estado), `worn` (o que costuma mudar de aparência com o uso) e `note` (o que a comparação **não** permite concluir). Preenchido para cinco peças: pneu, pastilha de freio, disco de freio, correia dentada e mola.
+Adicionada em 13 de setembro de 2026 (`ADR-007`, `TASK-014`). Campo opcional em `Part`, com três textos: `normal` (o que se vê numa peça em bom estado), `worn` (o que costuma mudar de aparência com o uso) e `note` (o que a comparação **não** permite concluir). Preenchido para cinco peças: pneu, pastilha de freio, disco de freio, vela de ignição e mola.
 
 O `note` não é decoração: é o campo que impede a comparação de virar diagnóstico. Cada um deles repete, no contexto visual, a ressalva que o `care` daquela peça já faz — espessura de pastilha e disco é medida, não estimada no olho; vibração ao frear não confirma disco empenado; altura desigual pode vir da mola ou de outras peças da suspensão.
 
 Nenhuma fonte nova foi cadastrada. Cada afirmação visual foi derivada do que a própria peça já afirma em `how`, `signs` ou `care` — textos que já estão cobertos pelos `sourceIds` dela. Onde uma descrição visual mais específica teria exigido lastro além disso (corrosão em molas, por exemplo), a frase foi reescrita em vez de mantida.
 
-**Tensão registrada na correia dentada.** O catálogo diz que ela "pode se deteriorar sem dar um aviso claro" e que não se deve esperar sintoma para trocá-la. Uma comparação visual pode sugerir justamente o contrário: que dá para avaliar a correia pela aparência. O texto foi escrito para desfazer isso — o `worn` diz que a correia pode chegar ao fim do prazo ainda com boa aparência, e o `note` afirma que essa é a peça em que a aparência menos ajuda. Ainda assim, é o caso do subconjunto em que a ilustração da `TASK-015` corre mais risco de ensinar o contrário do texto, e quem for desenhá-la precisa ter isso em conta. Candidatas mais seguras para a próxima leva, por terem desgaste de leitura visual direta: vela de ignição (que tem fonte própria sobre desgaste, `denso-spark-wear`) e filtro de ar.
+**A correia dentada foi retirada do subconjunto.** A primeira versão desta entrega a incluía. O catálogo diz que ela "pode se deteriorar sem dar um aviso claro" e que não se deve esperar sintoma para trocá-la — enquanto uma comparação visual sugere o contrário, que dá para julgar pela aparência. O texto foi escrito para desfazer isso, mas a ilustração ainda poderia ensinar o oposto, então o usuário decidiu trocá-la pela **vela de ignição** (emenda registrada no `ADR-007`). A correia continua no catálogo, apenas sem o campo `wear`.
+
+A vela é o caso mais seguro do catálogo para esta feature: o campo `how` dela já descreve a distância que a eletricidade atravessa entre os eletrodos, e o desgaste é o aumento gradual dessa distância — diretamente derivável do texto existente. É também a única peça com fonte dedicada a aparência de desgaste (`denso-spark-wear`), o que sustenta a menção a depósitos na ponta. Candidata seguinte, se o subconjunto crescer: filtro de ar.
 
 ## Glossário de termos técnicos
 
