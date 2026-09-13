@@ -1,7 +1,8 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Box, Check, CheckCircle2, ChevronRight, CircleDot, Cog, Droplets, ExternalLink, Fuel, GraduationCap, Layers3, Menu, Minus, Move, Play, Plus, RotateCcw, Search, Settings2, ShieldCheck, Sparkles, Wrench, X, Zap } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, BookA, BookOpen, Box, Check, CheckCircle2, ChevronRight, CircleDot, Cog, Droplets, ExternalLink, Fuel, GraduationCap, Layers3, Menu, Minus, Move, Play, Plus, RotateCcw, Search, Settings2, ShieldCheck, Sparkles, Wrench, X, Zap } from 'lucide-react';
 import { parts, sources, systems } from './data/parts';
+import { glossary } from './data/glossary';
 import type { Part, SystemId } from './data/parts';
 import type { Mode } from './components/MechanismLab';
 import PartSketch from './components/PartSketch';
@@ -9,7 +10,7 @@ import PartSketch from './components/PartSketch';
 const CarScene = lazy(() => import('./components/CarScene'));
 const MechanismLab = lazy(() => import('./components/MechanismLab'));
 
-type Page = 'explore' | 'mechanisms' | 'parts' | 'progress';
+type Page = 'explore' | 'mechanisms' | 'parts' | 'glossary' | 'progress';
 type View = 'perspective' | 'side' | 'top';
 const STORAGE_KEY = 'por-dentro:learned:v1';
 const systemIcons: Record<SystemId, LucideIcon> = { all: Layers3, engine: Cog, transmission: Settings2, brakes: CircleDot, suspension: Move, electrical: Zap, cooling: Droplets, fuel: Fuel };
@@ -26,6 +27,7 @@ const navigation: { id: Page; title: string; icon: LucideIcon }[] = [
   { id: 'explore', title: 'Explorar o carro', icon: Box },
   { id: 'mechanisms', title: 'Como funciona', icon: Cog },
   { id: 'parts', title: 'Peças e cuidados', icon: Wrench },
+  { id: 'glossary', title: 'Glossário', icon: BookA },
   { id: 'progress', title: 'Meu aprendizado', icon: BookOpen },
 ];
 
@@ -80,6 +82,7 @@ function App() {
   const [storageAvailable,setStorageAvailable]=useState(true);
   const [libraryFilter,setLibraryFilter]=useState<SystemId>('all');
   const [returnToResults,setReturnToResults]=useState(false);
+  const [termQuery,setTermQuery]=useState('');
   const [detailRequest,setDetailRequest]=useState(0);
   const searchRef=useRef<HTMLInputElement>(null);
   const sidebarRef=useRef<HTMLElement>(null);
@@ -129,6 +132,7 @@ function App() {
     try{localStorage.setItem(STORAGE_KEY,JSON.stringify(next));setStorageAvailable(true);}catch{setStorageAvailable(false);}
     setToast(next.includes(id)?'Mais uma peça compreendida. Bom aprendizado!':'Peça removida das aprendidas.');
   };
+  const resultTerms=glossary.filter(entry=>!termQuery||normalize(`${entry.term} ${entry.definition} ${entry.relatedParts.map(id=>parts.find(part=>part.id===id)?.name??'').join(' ')}`).includes(normalize(termQuery)));
   const resultParts=parts.filter(part=>(libraryFilter==='all'||part.system===libraryFilter)&&(!query||normalize(`${part.name} ${part.summary} ${part.signs.join(' ')} ${systems.find(system=>system.id===part.system)?.name}`).includes(normalize(query))));
 
   return <div className="app-shell">
@@ -160,6 +164,8 @@ function App() {
         </>}
         {page==='mechanisms'&&<><div className="page-heading"><div><h1>O movimento faz sentido<span>.</span></h1><p>Pause, observe e conecte as peças. A mecânica fica mais simples assim.</p></div><button className="subtle-button" onClick={()=>navigate('explore')}><Box size={15}/> Voltar ao carro</button></div><Suspense fallback={<div className="scene-loading" role="status">Preparando os mecanismos…</div>}><MechanismLab key={mechanismMode} initialMode={mechanismMode}/></Suspense><section className="mechanism-connections"><h2>Agora, encontre no carro</h2><div>{mechanismParts[mechanismMode].map(id=>parts.find(part=>part.id===id)).filter((part):part is Part=>Boolean(part)).map(part=><button key={part.id} onClick={()=>openPart(part)}><span className={`system-dot system-${part.system}`}/>{part.name}<ArrowUpRight size={16}/></button>)}</div></section><p className="learning-footnote">Os diagramas são esquemas simplificados, feitos para explicar o princípio de cada mecanismo. O projeto real varia conforme o veículo.</p></>}
         {page==='parts'&&<><div className="page-heading"><div><h1>Conhecer também é cuidar<span>.</span></h1><p>O que cada peça faz, como se desgasta e os sinais que merecem atenção.</p></div><span className="page-counter">{parts.length} peças essenciais</span></div><div className="library-controls"><div className="system-tabs">{systems.map(system=><button key={system.id} className={`system-tab ${libraryFilter===system.id?'selected':''}`} aria-pressed={libraryFilter===system.id} onClick={()=>setLibraryFilter(system.id)}>{system.name}</button>)}</div></div>{query&&<p className="search-results-copy">{resultParts.length} {resultParts.length===1?'resultado':'resultados'} para “{query}” <button className="text-link" onClick={()=>setQuery('')}>Limpar busca <X size={13}/></button></p>}<div className="library-table"><div className="library-table-header"><span>Peça / função</span><span>Sistema</span><span>O que observar</span><span/></div>{resultParts.map(part=><button className="library-row" key={part.id} onClick={()=>openPart(part)}><span className="library-part"><span className={`library-drawing system-${part.system}`}><PartSketch system={part.system} partId={part.id}/></span><span><strong>{part.name}{learned.includes(part.id)&&<CheckCircle2 size={15} className="learned-check"/>}</strong><small>{part.summary}</small></span></span><span className={`library-system system-${part.system}`}><span className="system-dot"/>{systems.find(system=>system.id===part.system)?.name}</span><span className="library-attention">{part.attention}</span><ArrowUpRight size={17}/></button>)}</div>{resultParts.length===0&&<div className="empty-state"><Search size={32} strokeWidth={1.3}/><h2>Nenhuma peça por aqui.</h2><p>Tente um nome como “bateria” ou um sinal como “ruído”.</p><button className="primary-button" onClick={()=>{setQuery('');setLibraryFilter('all');}}>Ver todas as peças</button></div>}<div className="content-note"><ShieldCheck size={19}/><p>Desgaste depende do uso e do veículo. Estes são exemplos comuns de manutenção, sem ordem de frequência. Um mesmo sinal pode ter várias causas.</p></div></>}
+        {page==='glossary'&&<><div className="page-heading"><div><h1>O vocabulário do carro<span>.</span></h1><p>As palavras que aparecem nas peças e nos mecanismos, explicadas em uma frase.</p></div><span className="page-counter">{glossary.length} termos</span></div><div className="glossary-search" role="search"><Search size={17}/><input value={termQuery} onChange={event=>setTermQuery(event.target.value)} placeholder="Buscar um termo..." aria-label="Buscar um termo no glossário"/>{termQuery&&<button type="button" className="clear-search" aria-label="Limpar busca do glossário" onClick={()=>setTermQuery('')}><X size={14}/></button>}</div>{termQuery&&<p className="search-results-copy">{resultTerms.length} {resultTerms.length===1?'resultado':'resultados'} para “{termQuery}”</p>}<dl className="glossary-list">{resultTerms.map(entry=><div className="glossary-entry" key={entry.id}><dt>{entry.term}</dt><dd><p>{entry.definition}</p>{entry.relatedParts.length>0&&<div className="glossary-related"><span className="glossary-related-label">Onde aparece</span>{entry.relatedParts.map(id=>parts.find(part=>part.id===id)).filter((part): part is Part=>Boolean(part)).map(part=><button key={part.id} className={`glossary-part system-${part.system}`} onClick={()=>openPart(part)}><span className="system-dot"/>{part.name}<ArrowUpRight size={14}/></button>)}</div>}</dd></div>)}</dl>{resultTerms.length===0&&<div className="empty-state"><Search size={32} strokeWidth={1.3}/><h2>Nenhum termo por aqui.</h2><p>Tente “freio”, “calor” ou “elétrica”.</p><button className="primary-button" onClick={()=>setTermQuery('')}>Ver todos os termos</button></div>}<div className="content-note"><BookA size={19}/><p>Cada definição explica o termo do jeito que ele é usado neste guia, apoiada nas mesmas fontes da peça onde ele aparece. Um mesmo termo pode ter usos mais amplos fora daqui.</p></div></>}
+
         {page==='progress'&&<><div className="page-heading"><div><h1>Cada descoberta conta<span>.</span></h1><p>O que você já aprendeu fica por aqui. Volte sempre que quiser revisar.</p></div><GraduationCap className="heading-icon" size={44} strokeWidth={1.1}/></div><div className="progress-overview"><div><h2>Seu caminho pela mecânica</h2><p><strong>{learned.length}</strong> de {parts.length} peças compreendidas</p></div><div className="progress-meter"><span>{progress}% explorado</span><div role="progressbar" aria-label="Peças aprendidas" aria-valuenow={learned.length} aria-valuemin={0} aria-valuemax={parts.length}><span style={{transform:`scaleX(${progress/100})`}}/></div><small>{storageAvailable?'Salvo neste navegador, sem precisar de conta.':'O navegador não permitiu salvar. Seu progresso vale nesta sessão.'}</small></div></div><div className="progress-systems">{systems.filter(system=>system.id!=='all').map(system=>{const systemParts=parts.filter(part=>part.system===system.id);const count=systemParts.filter(part=>learned.includes(part.id)).length;const Icon=systemIcons[system.id];return <section key={system.id} className={`progress-system system-${system.id}`}><div className="progress-system-heading"><Icon size={22} strokeWidth={1.6}/><h2>{system.name}</h2><span>{count}/{systemParts.length}</span></div><div>{systemParts.map(part=><button key={part.id} onClick={()=>openPart(part)}>{learned.includes(part.id)?<CheckCircle2 size={16} className="learned-check"/>:<span className="unlearned-circle"/>}<span>{part.name}</span><ChevronRight size={14}/></button>)}</div></section>;})}</div>{learned.length===0&&<div className="progress-start"><p>Comece pelo motor e descubra como a energia vira movimento.</p><button className="primary-button" onClick={()=>openPart(parts.find(part=>part.id==='engine')!)}>Explorar minha primeira peça <ArrowRight size={16}/></button></div>}<p className="learning-footnote"><ArrowDown size={14}/> Para marcar uma peça, abra sua explicação e selecione “Marcar como aprendido”.</p></>}
       </main>
     </div>

@@ -9,9 +9,10 @@ Você é o especialista na casca React/UI do repositório Carbody. Este é um pr
 
 ## Arquitetura confirmada
 
-- `App.tsx` é a casca inteira da aplicação: navegação entre 4 páginas (`explore`, `mechanisms`, `parts`, `progress`) via estado local `page` (`useState<Page>`), sem router — `navigate()` centraliza a troca de página.
+- `App.tsx` é a casca inteira da aplicação: navegação entre 5 páginas (`explore`, `mechanisms`, `parts`, `glossary`, `progress`) via estado local `page` (`useState<Page>`), sem router — `navigate()` centraliza a troca de página. O array `navigation` gera a sidebar e as abas mobile: acrescentar uma página é acrescentar um valor a `Page`, uma entrada em `navigation` e um bloco condicional no `<main>`; não há `Record<Page, …>` em outro arquivo para atualizar junto.
 - Progresso do usuário (`learned: string[]`) é persistido em `localStorage` sob a chave `por-dentro:learned:v1` (`loadLearned`/`toggleLearned`), com fallback gracioso (`storageAvailable`) quando o navegador recusa gravação.
 - Busca (`query`) filtra o catálogo (`resultParts`) usando `normalize()` (remove acentos, lowercase) — qualquer campo de texto pesquisável precisa passar por essa função para casar com a busca do usuário.
+- O glossário (`ADR-006`) tem **busca própria e separada** (`termQuery`/`resultTerms`), deliberadamente fora da busca `Ctrl K`: a decisão do ADR foi não misturar peças e termos no mesmo resultado. Ela reusa `normalize()` e procura em termo, definição e nome das peças relacionadas.
 - `MechanismLab.tsx` roda uma animação própria via `requestAnimationFrame` com respeito a `prefers-reduced-motion` (`reducedMotion` state, `media.addEventListener('change', ...)`) — todo novo elemento animado deve seguir o mesmo padrão de checar/reagir a essa media query.
 - Acessibilidade já estabelecida: skip link (`.skip-link`), `aria-label`/`aria-pressed`/`aria-selected` em controles interativos, `role="tablist"`/`"tabpanel"` nas abas de `PartDetail` e `MechanismLab`.
 - CSS é um arquivo único por componente (`styles.css`, `car-scene.css`, `mechanism-lab.css`), sem CSS-in-JS nem Tailwind — segue variáveis CSS (`--ink`, `--muted`, `--accent`, `--system-color`, `--part-fill`) definidas em `:root` e sobrescritas por classe de sistema (`.system-engine`, `.system-cooling`, etc.).
