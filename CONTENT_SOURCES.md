@@ -48,3 +48,11 @@ Três fontes desta lista responderam 403 na abertura direta (`aa-parking-brake`,
 **Correção (2026-09-11)**: a fonte `hella-alternator`, citada pela peça "Alternador", apontava para um arquivo de logotipo da HELLA em vez de conteúdo técnico — removida. A peça passou a citar `hella-starting` (já cadastrada, cobre partida e alternador na mesma página).
 
 O cadastro exportado mantém os links complementares. Propaganda de produto, prazos médios, rankings e percentuais das fontes não foram reproduzidos como regras universais.
+
+## Glossário de termos técnicos
+
+Adicionado em 13 de setembro de 2026 (`ADR-006`, `TASK-012`), em `src/data/glossary.ts` — arquivo próprio, separado de `parts.ts`. São 19 termos, cada um com `relatedParts` (onde o termo aparece) e `sourceIds`.
+
+Critério de seleção: só entraram termos que o usuário **encontra de fato** no conteúdo — no texto das 34 peças ou no laboratório de mecanismos. Por isso `viscosidade` e `oxidação`, citados como candidatos no planejamento, ficaram de fora: não aparecem em lugar nenhum do conteúdo, e defini-los seria explicar uma palavra que ninguém vai encontrar. `torque` entrou mesmo não aparecendo em `parts.ts`, porque é usado no laboratório de mecanismos (modo "Engrenagens").
+
+Nenhuma fonte nova foi cadastrada. Cada definição se apoia nas mesmas referências que já sustentam a peça onde o termo é usado — por exemplo, "pressão hidráulica" cita as mesmas fontes Brembo de `brake-fluid` e `brake-caliper`. A regra por trás disso: o glossário não pode introduzir afirmação técnica que o catálogo já não sustente, e não pode contradizer o campo `function`/`how` da peça relacionada.

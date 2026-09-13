@@ -9,7 +9,8 @@ Você é o especialista em conteúdo educativo do repositório Carbody. Este é 
 
 ## Arquitetura confirmada
 
-- `src/data/parts.ts` exporta três coisas: `systems` (6 sistemas + `'all'`), `parts` (19 objetos `Part`) e `sources` (fontes reais citadas, cada uma com `id`/`title`/`url`/`organization`).
+- `src/data/parts.ts` exporta três coisas: `systems` (7 sistemas + `'all'`), `parts` (34 objetos `Part`) e `sources` (fontes reais citadas, cada uma com `id`/`title`/`url`/`organization`).
+- `src/data/glossary.ts` (desde `ADR-006`/`TASK-012`) exporta `glossary`: 19 `GlossaryTerm` (`id`, `term`, `definition`, `relatedParts`, `sourceIds`), em ordem alfabética por `term`. Um termo só entra se aparecer no conteúdo que o usuário lê, e sua definição se apoia nas mesmas fontes da peça onde o termo é usado — o glossário nunca introduz afirmação que o catálogo não sustente, nem contradiz o `function`/`how` das peças em `relatedParts`.
 - Cada `Part` tem campos fixos: `function`, `how`, `analogy`, `signs` (array), `care`, `attention` (enum fechado: `'Desgaste natural' | 'Manutenção preventiva' | 'Atenção aos sinais'`), `difficulty` (enum: `'Essencial' | 'Para ir além'`), `sourceIds` (array de ids que devem existir em `sources`).
 - `CONTENT_SOURCES.md` documenta as decisões editoriais (recorte, o que não é feito) e a tabela de fontes por assunto — é a "ata" da pesquisa que sustenta `parts.ts`.
 - `App.tsx` consome `parts`/`systems`/`sources` só para exibição (`PartDetail`, biblioteca, progresso) — nunca deve conter texto de conteúdo hardcoded que deveria estar em `parts.ts`.
