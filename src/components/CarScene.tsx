@@ -98,6 +98,9 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     const pickables: THREE.Mesh[] = [];
     const appearances: { mesh: THREE.Mesh; material: THREE.MeshStandardMaterial; opacity: number; system: string; part: string }[] = [];
     const bodyItems: THREE.Object3D[] = [];
+    // Conjuntos que giram quando o sistema correspondente está selecionado (ADR-005).
+    const wheels: THREE.Group[] = [];
+    const pulleys: { group: THREE.Group; rate: number }[] = [];
 
     const mat = (color: string, metalness = .25, roughness = .44, opacity = 1) => new THREE.MeshStandardMaterial({ color, metalness, roughness, transparent: true, opacity, depthWrite: opacity > .5 });
     function solid(geometry: THREE.BufferGeometry, position: Vec, color: string, system = '', part = '', options: { opacity?: number; metalness?: number; roughness?: number; rotation?: Vec; body?: boolean } = {}) {
@@ -155,6 +158,9 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     // Four complete wheels, each with a tread crown, sidewalls, spokes, hub and ventilated disc.
     for (const x of [-1.68, 1.68]) for (const side of [-1, 1]) {
       const z = side * 1.01;
+      // Tudo criado daqui até spinEnd é solidário ao cubo e gira junto: pneu, aro, raios,
+      // cubo, rolamento, parafusos e o disco de freio, que é parafusado na roda.
+      const spinStart = car.children.length;
       torus(.345, .135, [x, .49, z], COLORS.rubber, 'suspension', 'tire', { roughness: .93, metalness: 0 });
       cyl(.426, .21, [x, .49, z], COLORS.rubber, 'suspension', 'tire', 'z', { roughness: .92, metalness: .03 });
       for (const edge of [-1, 1]) torus(.342, .036, [x, .49, z + edge * .116], '#4f5758', 'suspension', 'tire', { roughness: .87 });
@@ -190,6 +196,8 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
         const a = i * Math.PI * 2 / 14;
         cyl(.009, .039, [x + Math.sin(a) * .19, .49 + Math.cos(a) * .19, discZ], '#768387', 'brakes', 'brake-disc', 'z');
       }
+      const spinEnd = car.children.length;
+      // A pinça e a pastilha ficam de fora: são ancoradas ao chassi, não giram com a roda.
       box([.14, .27, .125], [x + .19, .54, discZ], COLORS.brakes, 'brakes', 'brake-pad', .045);
       // The caliper housing wraps around the pad, anchored to the disc.
       box([.19, .33, .17], [x + .21, .545, discZ], '#3a4144', 'brakes', 'brake-caliper', .05);
@@ -208,6 +216,15 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       if (x < 0) {
         for (let i = 0; i < 5; i++) cyl(.084 - i * .005, .028, [x, .46, side * (.61 + i * .028)], '#414d50', 'transmission', 'cv-joint', 'z');
       }
+      // attach() preserva a posição no mundo e só troca o pai, então nada se desloca ao agrupar.
+      // Os meshes seguem em pickables/appearances com seu userData, e o raycaster continua
+      // intersectando cada um individualmente — agora acompanhando a rotação do cubo.
+      const spinning = car.children.slice(spinStart, spinEnd);
+      const hub = new THREE.Group();
+      hub.position.set(x, .49, z);
+      car.add(hub);
+      for (const mesh of spinning) hub.attach(mesh);
+      wheels.push(hub);
     }
     // Anti-roll bar linking the two front wishbones, mounted just below them.
     tube([[-1.95, .39, -.41], [-1.95, .35, -.15], [-1.95, .35, .15], [-1.95, .39, .41]], .022, '#5c6b6e', 'suspension', 'sway-bar');
@@ -243,9 +260,23 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     tube([[-1.32, 1.16, .16], [-1.16, 1.04, .2], [-1.04, .89, .17]], .012, '#3a4444', 'engine');
     // Two timing pulleys joined by a continuous belt, deliberately exposed for teaching.
     for (const [x, y, r] of [[-1.75, .96, .13], [-1.4, .65, .105]]) {
+      const spinStart = car.children.length;
       cyl(r, .04, [x, y, .445], '#667b80', 'engine', 'timing-belt', 'z');
       torus(r, .018, [x, y, .478], '#363e3c', 'engine', 'timing-belt');
       cyl(.039, .048, [x, y, .463], '#bdc5c3', 'engine', 'timing-belt', 'z');
+      // Três raios por polia: sem eles um cilindro liso girando não mostra que está girando.
+      for (let i = 0; i < 3; i++) {
+        const a = i * Math.PI * 2 / 3;
+        const spoke = box([.019, r * .96, .019], [x + Math.sin(a) * r * .46, y + Math.cos(a) * r * .46, .462], '#9caaab', 'engine', 'timing-belt', .005, { metalness: .62, roughness: .34 });
+        spoke.rotation.z = -a;
+      }
+      const spinning = car.children.slice(spinStart);
+      const pulley = new THREE.Group();
+      pulley.position.set(x, y, 0);
+      car.add(pulley);
+      for (const mesh of spinning) pulley.attach(mesh);
+      // A correia é uma só: a polia menor dá mais voltas no mesmo tempo.
+      pulleys.push({ group: pulley, rate: .13 / r });
     }
     tube([[-1.82, 1.06, .476], [-1.85, .88, .476], [-1.48, .58, .476], [-1.33, .61, .476], [-1.32, .72, .476], [-1.67, 1.05, .476], [-1.82, 1.06, .476]], .018, '#37413f', 'engine', 'timing-belt');
     // Air filter housing, fed by a short intake duct running down to the manifold.
@@ -268,7 +299,8 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     cyl(.045, .07, [.04, .97, 0], '#263b3d', 'transmission', 'gearbox');
 
     // Radiator fins, fan and a closed pair of cooling hoses.
-    box([.13, .57, 1.1], [-2.17, .76, 0], COLORS.cooling, 'cooling', 'radiator', .025);
+    // Colmeia semitransparente: um radiador real é vazado, e opaco ele esconderia a ventoinha logo atrás.
+    box([.13, .57, 1.1], [-2.17, .76, 0], COLORS.cooling, 'cooling', 'radiator', .025, { opacity: .55 });
     for (let i = 0; i < 17; i++) box([.015, .49, .017], [-2.244, .76, -.49 + i * .061], '#aec3c7', 'cooling', 'radiator', .005);
     for (const y of [.47, 1.055]) box([.17, .06, 1.12], [-2.17, y, 0], '#506f7a', 'cooling', 'radiator', .018);
     const fan = new THREE.Group();
@@ -491,11 +523,29 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
     const intersection = new IntersectionObserver(entries => { inView = entries[0]?.isIntersecting ?? true; });
     intersection.observe(element);
     const projected = new THREE.Vector3();
+    // Primeira animação contínua desta cena: precisa da mesma checagem que o MechanismLab faz.
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reducedMotion = motionQuery.matches;
+    const onMotionChange = () => { reducedMotion = motionQuery.matches; };
+    motionQuery.addEventListener('change', onMotionChange);
+    let previousFrame: number | undefined;
+
     function render() {
       if (!running) return;
       frame = requestAnimationFrame(render);
       if (!inView || document.hidden) return;
       orbit.update();
+      // Delta em segundos, limitado para que uma aba ociosa não produza um salto ao voltar.
+      const now = performance.now();
+      const delta = previousFrame === undefined ? 0 : Math.min(now - previousFrame, 80) / 1000;
+      previousFrame = now;
+      // Só o sistema selecionado se move (ADR-005): o movimento aparece onde o usuário está olhando.
+      if (!reducedMotion && delta) {
+        const system = props.current.activeSystem;
+        if (system === 'cooling') fan.rotation.x += delta * 2.4;
+        else if (system === 'suspension') for (const wheel of wheels) wheel.rotation.z += delta * 1.25;
+        else if (system === 'engine') for (const pulley of pulleys) pulley.group.rotation.z += delta * 1.5 * pulley.rate;
+      }
       const projectedPins: { pin: Pin; button: HTMLButtonElement; px: number; py: number; x: number; y: number; width: number; height: number }[] = [];
       // Finish the read phase before changing any button styles.
       for (const pin of PINS) {
@@ -576,6 +626,7 @@ export default function CarScene({ activeSystem, selectedPart, onSelectPart, bod
       observer.disconnect();
       document.fonts?.removeEventListener('loadingdone', clearPinSizes);
       intersection.disconnect();
+      motionQuery.removeEventListener('change', onMotionChange);
       orbit.dispose();
       renderer.domElement.removeEventListener('pointerdown', down);
       renderer.domElement.removeEventListener('pointerup', up);

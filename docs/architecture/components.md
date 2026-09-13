@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: src/App.tsx, src/components/, src/data/parts.ts
-ultima-revisao: TASK-016, 2026-09-13
+ultima-revisao: TASK-011, 2026-09-13
 ---
 
 # Componentes
