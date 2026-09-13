@@ -49,6 +49,16 @@ Três fontes desta lista responderam 403 na abertura direta (`aa-parking-brake`,
 
 O cadastro exportado mantém os links complementares. Propaganda de produto, prazos médios, rankings e percentuais das fontes não foram reproduzidos como regras universais.
 
+## Comparação "em bom estado" e "com uso" (campo `wear`)
+
+Adicionada em 13 de setembro de 2026 (`ADR-007`, `TASK-014`). Campo opcional em `Part`, com três textos: `normal` (o que se vê numa peça em bom estado), `worn` (o que costuma mudar de aparência com o uso) e `note` (o que a comparação **não** permite concluir). Preenchido para cinco peças: pneu, pastilha de freio, disco de freio, correia dentada e mola.
+
+O `note` não é decoração: é o campo que impede a comparação de virar diagnóstico. Cada um deles repete, no contexto visual, a ressalva que o `care` daquela peça já faz — espessura de pastilha e disco é medida, não estimada no olho; vibração ao frear não confirma disco empenado; altura desigual pode vir da mola ou de outras peças da suspensão.
+
+Nenhuma fonte nova foi cadastrada. Cada afirmação visual foi derivada do que a própria peça já afirma em `how`, `signs` ou `care` — textos que já estão cobertos pelos `sourceIds` dela. Onde uma descrição visual mais específica teria exigido lastro além disso (corrosão em molas, por exemplo), a frase foi reescrita em vez de mantida.
+
+**Tensão registrada na correia dentada.** O catálogo diz que ela "pode se deteriorar sem dar um aviso claro" e que não se deve esperar sintoma para trocá-la. Uma comparação visual pode sugerir justamente o contrário: que dá para avaliar a correia pela aparência. O texto foi escrito para desfazer isso — o `worn` diz que a correia pode chegar ao fim do prazo ainda com boa aparência, e o `note` afirma que essa é a peça em que a aparência menos ajuda. Ainda assim, é o caso do subconjunto em que a ilustração da `TASK-015` corre mais risco de ensinar o contrário do texto, e quem for desenhá-la precisa ter isso em conta. Candidatas mais seguras para a próxima leva, por terem desgaste de leitura visual direta: vela de ignição (que tem fonte própria sobre desgaste, `denso-spark-wear`) e filtro de ar.
+
 ## Glossário de termos técnicos
 
 Adicionado em 13 de setembro de 2026 (`ADR-006`, `TASK-012`), em `src/data/glossary.ts` — arquivo próprio, separado de `parts.ts`. São 19 termos, cada um com `relatedParts` (onde o termo aparece) e `sourceIds`.

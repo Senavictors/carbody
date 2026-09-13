@@ -25,6 +25,13 @@ export interface Part {
   attention: 'Desgaste natural' | 'Manutenção preventiva' | 'Atenção aos sinais';
   difficulty: 'Essencial' | 'Para ir além';
   sourceIds: string[];
+  /**
+   * Comparação ilustrativa entre a peça em bom estado e a mesma peça com uso.
+   * Opcional: só peças cujo desgaste tem leitura visual didática preenchem este campo.
+   * É exemplo editorial, nunca diagnóstico — descreve o que costuma mudar de aparência,
+   * não prova que a peça precisa de troca. `note` carrega o que a comparação NÃO permite concluir.
+   */
+  wear?: { normal: string; worn: string; note: string };
 }
 
 export const parts: Part[] = [
@@ -57,6 +64,11 @@ export const parts: Part[] = [
     signs: ['Troca vencida por tempo ou quilometragem', 'Histórico de substituição desconhecido', 'Ruído incomum na região da distribuição'],
     care: 'Não espere um sintoma para substituir a correia. Use o prazo do fabricante, considerando tempo e quilometragem, e peça a avaliação dos tensores e componentes associados.',
     attention: 'Manutenção preventiva', difficulty: 'Essencial', sourceIds: ['gates-timing', 'aa-breakdowns'],
+    wear: {
+      normal: 'Dentes regulares e bem formados, encaixando nas polias, com a superfície íntegra.',
+      worn: 'Com o tempo a borracha pode ressecar, trincar ou ter o perfil dos dentes alterado — mas nada disso é garantido: a correia pode chegar ao fim do prazo ainda com boa aparência.',
+      note: 'Esta é a peça em que a aparência menos ajuda. A correia dentada é trocada pelo prazo do fabricante, considerando tempo e quilometragem, e não pelo que se vê.',
+    },
   },
   {
     id: 'oil-filter', system: 'engine', name: 'Filtro de óleo', shortName: 'Filtro de óleo',
@@ -137,6 +149,11 @@ export const parts: Part[] = [
     signs: ['Chiado ou raspagem ao frear', 'Aviso de desgaste, se equipado', 'Mudança na eficiência da frenagem'],
     care: 'Peça inspeção da espessura e do desgaste nas revisões. Se a frenagem perder eficiência, pare em local seguro e procure assistência; não use apenas o barulho para decidir a troca.',
     attention: 'Desgaste natural', difficulty: 'Essencial', sourceIds: ['brembo-pads'],
+    wear: {
+      normal: 'Uma camada espessa de material de atrito sobre a base metálica, com a superfície inteira encostando no disco.',
+      worn: 'A mesma base metálica com a camada de atrito bem mais fina, consumida pelo contato com o disco. Em pastilhas equipadas, é por volta dessa altura que o indicador de desgaste passa a tocar.',
+      note: 'A espessura é medida na inspeção, com o limite do fabricante como referência. O barulho sozinho não decide a troca.',
+    },
   },
   {
     id: 'brake-disc', system: 'brakes', name: 'Disco de freio', shortName: 'Disco de freio',
@@ -147,6 +164,11 @@ export const parts: Part[] = [
     signs: ['Vibração percebida durante a frenagem', 'Raspagem ou ruído persistente', 'Sulcos ou espessura insuficiente na inspeção'],
     care: 'A oficina deve medir a espessura e avaliar o conjunto, respeitando os limites do fabricante. Vibração pode ter várias causas e não confirma, sozinha, um disco empenado.',
     attention: 'Desgaste natural', difficulty: 'Essencial', sourceIds: ['brembo-discs', 'brembo-disc-heat'],
+    wear: {
+      normal: 'Faces lisas e uniformes, com a superfície de contato no mesmo nível da borda externa.',
+      worn: 'Faces marcadas por sulcos circulares. Como a pastilha não alcança a borda, pode aparecer ali um degrau em relação à área que se desgastou.',
+      note: 'Espessura tem limite mínimo do fabricante e é medida, não estimada no olho. Vibração ao frear tem várias causas e não confirma, sozinha, um disco empenado.',
+    },
   },
   {
     id: 'brake-fluid', system: 'brakes', name: 'Fluido de freio', shortName: 'Fluido de freio',
@@ -197,6 +219,11 @@ export const parts: Part[] = [
     signs: ['Carro mais baixo de um lado', 'Fim de curso frequente da suspensão', 'Ruídos ou dano identificado na inspeção'],
     care: 'Respeite a capacidade de carga e preserve as especificações da suspensão. Alterações de altura ou ruídos pedem inspeção; molas exigem ferramentas e conhecimento para manuseio seguro.',
     attention: 'Atenção aos sinais', difficulty: 'Para ir além', sourceIds: ['monroe-springs'],
+    wear: {
+      normal: 'Espiras com espaçamento regular, sustentando a carroceria na altura de trabalho.',
+      worn: 'O sinal costuma aparecer na altura do carro, mais baixo de um lado, antes de aparecer na própria mola. Dano na espira é identificado na inspeção, não a olho com o carro montado.',
+      note: 'Altura desigual e ruídos pedem avaliação e podem vir da mola ou de outras peças da suspensão. Molas exigem ferramenta e conhecimento para manuseio seguro.',
+    },
   },
   {
     id: 'tire', system: 'suspension', name: 'Pneu', shortName: 'Pneu',
@@ -207,6 +234,11 @@ export const parts: Part[] = [
     signs: ['Desgaste irregular ou indicador atingido', 'Perda recorrente de pressão', 'Bolhas, cortes ou deformações'],
     care: 'Confira a pressão a frio indicada pelo fabricante e observe o estado dos pneus. Bolhas, cortes e perda de pressão pedem avaliação; o desenho sozinho não revela toda a condição.',
     attention: 'Desgaste natural', difficulty: 'Essencial', sourceIds: ['michelin-wear', 'michelin-tread', 'aa-breakdowns'],
+    wear: {
+      normal: 'Sulcos fundos e desenho contínuo por toda a banda de rodagem, com profundidade parecida entre o centro e os ombros.',
+      worn: 'Sulcos mais rasos e, às vezes, consumidos de forma desigual — um lado mais que o outro, ou o centro mais que as bordas. Os indicadores moldados no fundo do sulco chegam ao nível da borracha ao redor.',
+      note: 'O desenho conta só parte da história: bolhas, cortes e perda recorrente de pressão aparecem em pneus que ainda têm sulco. O estado completo depende de inspeção.',
+    },
   },
   {
     id: 'steering', system: 'suspension', name: 'Direção', shortName: 'Direção',
