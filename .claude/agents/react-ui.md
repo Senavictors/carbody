@@ -28,7 +28,7 @@ Você é o especialista na casca React/UI do repositório Carbody. Este é um pr
 
 - Fluxo de navegação completo: clique num item de `.main-nav` → `navigate(id)` → `setPage`/`setMenuOpen(false)`/scroll to top → `main-content` troca de bloco condicional por `page`.
 - Fluxo de progresso: `toggleLearned(id)` → atualiza `learned` → grava em `localStorage` → dispara `toast`.
-- Exemplo de aba acessível: `PartDetail` (`role="tablist"`, `aria-selected`, `aria-controls`) e `MechanismLab` (mesmo padrão para motor/engrenagens).
+- Exemplo de aba acessível: `PartDetail` (`role="tablist"`, `aria-selected`, `aria-controls`) e `MechanismLab` (mesmo padrão, hoje com 6 modos: motor, engrenagens, freios, arrefecimento, suspensão, elétrica — a lista `modes` no topo do arquivo governa abas, cabeçalho e navegação por teclado).
 
 ## O que você PODE fazer
 

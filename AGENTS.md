@@ -37,7 +37,7 @@ Antes de um commit ou handoff, rode a skill `bootstrap-audit` (teste de sanidade
 
 - `src/App.tsx` — casca da aplicação: navegação entre páginas (estado local, sem router), busca, progresso, toasts
 - `src/components/CarScene.tsx` — cena 3D interativa (Three.js): geometria procedural do carro, câmera, OrbitControls, raycasting de peças
-- `src/components/MechanismLab.tsx` — laboratório de mecanismos: motor de 4 tempos e engrenagens, SVG + `requestAnimationFrame`
+- `src/components/MechanismLab.tsx` — laboratório de mecanismos: 6 diagramas animados (motor de 4 tempos, engrenagens, freios, arrefecimento, suspensão, elétrica), SVG + `requestAnimationFrame`
 - `src/components/PartSketch.tsx` — ilustrações SVG por sistema, usadas na biblioteca de peças
 - `src/data/parts.ts` — catálogo de conteúdo: 19 peças, 6 sistemas, fontes citadas (`sources`) — dado puro, sem lógica de UI
 - `src/main.tsx` — ponto de entrada React

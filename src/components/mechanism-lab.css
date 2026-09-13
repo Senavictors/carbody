@@ -70,3 +70,7 @@
 .ml-intro h2 { font-size: 20px; letter-spacing: -.02em; }
 .ml-intro p { font-size: 13px; }
 @media (max-width: 700px) { .ml-svg-label { font-size: 19px; } .ml-svg-caption { font-size: 15px; } .ml-svg-gear-title { font-size: 21px; } }
+.ml-intro { flex-direction: column; align-items: flex-start; gap: 21px; }
+.ml-tabs { width: 100%; flex-wrap: wrap; }
+.ml-tabs button { flex: 1 1 auto; }
+@media (max-width: 700px) { .ml-tabs button { flex: 1 1 calc(50% - 6px); } }

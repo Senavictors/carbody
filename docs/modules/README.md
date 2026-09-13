@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: src/
-ultima-revisao: TASK-001/TASK-002, 2026-09-11
+ultima-revisao: TASK-010, 2026-09-13
 ---
 
 # Módulos
@@ -38,5 +38,6 @@ ultima-revisao: <task ou data>
 Módulos documentados até agora:
 
 - [`car-scene.md`](car-scene.md) — cena 3D interativa (Three.js), criado ao concluir `TASK-001`/`TASK-002`.
+- [`mechanism-lab.md`](mechanism-lab.md) — laboratório de mecanismos (SVG animado), criado ao concluir `TASK-009` e revisado na `TASK-010`.
 
-_(criar os demais conforme necessário — candidatos naturais restantes: `mechanism-lab.md`, `parts-catalog.md`, `app-shell.md`)_
+_(criar os demais conforme necessário — candidatos naturais restantes: `parts-catalog.md`, `app-shell.md`)_

@@ -36,7 +36,7 @@ src/
   App.tsx                    # casca da aplicação: navegação, busca, progresso
   components/
     CarScene.tsx              # cena 3D interativa (Three.js)
-    MechanismLab.tsx           # motor de 4 tempos e engrenagens (SVG animado)
+    MechanismLab.tsx           # 6 mecanismos animados em SVG (motor a elétrica)
     PartSketch.tsx              # ilustrações SVG por sistema/peça
   data/
     parts.ts                   # catálogo: sistemas, peças, fontes citadas

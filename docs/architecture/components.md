@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: src/App.tsx, src/components/, src/data/parts.ts
-ultima-revisao: ADR-003 (TASK-003 a TASK-008), 2026-09-11
+ultima-revisao: TASK-016, 2026-09-13
 ---
 
 # Componentes
@@ -10,7 +10,7 @@ Componentes internos relevantes por camada. Carbody não tem camadas de backend/
 
 ## Camada de entrada/UI
 
-- **`App.tsx`** — casca da aplicação inteira: navegação entre páginas via estado local (`page`), busca (`normalize()` + filtro), progresso do usuário, toasts, menu mobile. Compõe `CarScene` e `MechanismLab` via `React.lazy`/`Suspense` (code-splitting — cada um só carrega quando a página correspondente abre) e `PartSketch` diretamente.
+- **`App.tsx`** — casca da aplicação inteira: navegação entre páginas via estado local (`page`), busca (`normalize()` + filtro), progresso do usuário, toasts, menu mobile. Compõe `CarScene` e `MechanismLab` via `React.lazy`/`Suspense` (code-splitting — cada um só carrega quando a página correspondente abre) e `PartSketch` diretamente. Dois mapas ligam a casca ao laboratório de mecanismos: `systemMechanism` (`SystemId → Mode`) decide se a página de uma peça oferece o link "Veja o movimento acontecer" e para qual mecanismo ele leva, e `mechanismParts` (`Mode → ids de peça`) alimenta a seção "Agora, encontre no carro". O tipo `Mode` vem de `MechanismLab.tsx` por `import type`, que é apagado na compilação e por isso não desfaz o code-splitting.
 
 ## Camada de visualização — cena 3D
 
@@ -18,7 +18,7 @@ Componentes internos relevantes por camada. Carbody não tem camadas de backend/
 
 ## Camada de visualização — laboratório de mecanismos
 
-- **`MechanismLab.tsx`** (`src/components/`) — diagramas SVG animados (motor de 4 tempos, par de engrenagens), animação via `requestAnimationFrame` respeitando `prefers-reduced-motion`.
+- **`MechanismLab.tsx`** (`src/components/`) — diagramas SVG animados (motor de 4 tempos, par de engrenagens, circuito hidráulico de freio, circuito de arrefecimento, conjunto de suspensão, sistema de carga elétrica), animação via `requestAnimationFrame` respeitando `prefers-reduced-motion`.
 - **`PartSketch.tsx`** (`src/components/`) — ilustrações SVG por sistema, usadas na biblioteca de peças e nos detalhes de cada peça.
 
 ## Camada de dados/conteúdo
