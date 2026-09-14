@@ -11,6 +11,8 @@ Mantido automaticamente por `bootstrap-audit` a cada execução — não edite e
 | ADR-005 | Animar peças do modelo 3D condicionadas ao sistema selecionado | accepted | 2026-09-13 | `ADR-005-animacao-condicionada-por-sistema-no-modelo-3d.md` |
 | ADR-006 | Adicionar um glossário de termos técnicos como página própria | accepted | 2026-09-13 | `ADR-006-glossario-de-termos-tecnicos.md` |
 | ADR-007 | Comparação visual "desgaste vs. novo" via campo novo em Part | accepted | 2026-09-13 | `ADR-007-comparacao-visual-desgaste-vs-novo.md` |
+| ADR-008 | Extrair cada mecanismo do MechanismLab para um módulo próprio, co-locando dados, diagrama e painel | accepted | 2026-09-13 | `ADR-008-extrair-mecanismos-em-modulos-proprios.md` |
+| ADR-009 | Validar a integridade dos ids de conteúdo por script no build | accepted | 2026-09-13 | `ADR-009-validacao-de-ids-do-conteudo-no-build.md` |
 <!-- bootstrap-audit preenche uma linha por arquivo em .agents/decisions/*.md, lendo o frontmatter (id, title, status, date). Não remova este comentário — é o marcador de onde a regeneração insere as linhas. -->
 
 ## Status possíveis
