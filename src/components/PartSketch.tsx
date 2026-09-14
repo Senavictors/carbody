@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
 import type { SystemId } from '../data/parts';
 
-type PartSketchProps = { system: SystemId; partId?: string };
+/** 'worn' só muda o desenho das peças que têm `wear` no catálogo; as demais ignoram e caem no desenho único. */
+export type SketchVariant = 'normal' | 'worn';
+type PartSketchProps = { system: SystemId; partId?: string; variant?: SketchVariant };
 
 const primaryPart: Record<SystemId, string> = {
   all: 'engine', engine: 'engine', transmission: 'gearbox', brakes: 'brake-disc',
@@ -19,7 +21,8 @@ function gearOutline(cx: number, cy: number, radius: number, teeth: number) {
   return `M${points.join(' L')} Z`;
 }
 
-function PartShape({ id }: { id: string }): ReactNode {
+function PartShape({ id, variant }: { id: string; variant: SketchVariant }): ReactNode {
+  const worn = variant === 'worn';
   switch (id) {
     case 'spark-plug':
       return <>
@@ -29,7 +32,12 @@ function PartShape({ id }: { id: string }): ReactNode {
         <path d="M55 49h20l5 8-5 8H55l-5-8z" fill="var(--part-fill)" />
         <path d="M57 65h16v14H57z" fill="var(--part-fill)" />
         <path d="M57 68h16m-16 4h16m-16 4h16" strokeOpacity=".5" />
-        <path d="M65 79v5m8-5v10h-8" />
+        {worn
+          ? <>
+              <path d="M65 79v2.5m8-2.5v11h-8" />
+              <path d="M61 71h2m4 3h2m-9 3h2" strokeWidth="1.4" strokeOpacity=".45" />
+            </>
+          : <path d="M65 79v5m8-5v10h-8" />}
         <path d="M84 77l3 4m-6 6 4 1" strokeOpacity=".4" />
       </>;
     case 'timing-belt':
@@ -80,7 +88,7 @@ function PartShape({ id }: { id: string }): ReactNode {
     case 'brake-pad':
       return <>
         <path d="M27 61c4-27 21-40 38-40s34 13 38 40l-7 8H34Z" fill="var(--part-fill)" />
-        <path d="M34 60c5-20 17-31 31-31s26 11 31 31l-4 3H38Z" />
+        <path d={worn ? 'M31 60c4.5-24 19-36 34-36s29.5 12 34 36l-4.5 4H35.5Z' : 'M34 60c5-20 17-31 31-31s26 11 31 31l-4 3H38Z'} />
         <path d="M29 44h-9v13h8m73-13h9v13h-8M63 31v30m4-30v30" />
         <path d="M37 74h56M48 37l5 10m29-10-5 10" strokeOpacity=".35" />
       </>;
@@ -93,6 +101,10 @@ function PartShape({ id }: { id: string }): ReactNode {
           <path d="M60 24l7-2m-7 6 7-2" strokeWidth="1.5" strokeOpacity=".6" />
         </g>)}
         {Array.from({ length: 16 }, (_, index) => <path key={index} d="M65 14v4" transform={`rotate(${index * 22.5} 65 48)`} strokeWidth="1.2" strokeOpacity=".5" />)}
+        {worn && <>
+          {[20, 23.5, 26].map(radius => <circle key={radius} cx="65" cy="48" r={radius} strokeWidth="1" strokeOpacity=".55" />)}
+          <circle cx="65" cy="48" r="31.5" strokeWidth="1.4" strokeOpacity=".5" />
+        </>}
       </>;
     case 'brake-fluid':
       return <>
@@ -112,16 +124,21 @@ function PartShape({ id }: { id: string }): ReactNode {
       </>;
     case 'spring':
       return <>
-        <path d="M48 17h30c9 0 9 8 0 11L49 38c-9 3-9 11 0 11h29c9 0 9 8 0 11L49 70c-9 3-9 11 0 11h30" />
-        <path d="M48 17c-9 0-9 8 0 11l31 10c9 3 9 11 0 11H49c-9 0-9 8 0 11l30 10c9 3 9 11 0 11" strokeOpacity=".35" />
-        <path d="M48 28h30M49 70h30" strokeOpacity=".2" />
+        {worn && <path d="M44 17h38" strokeWidth="1.2" strokeOpacity=".3" strokeDasharray="3 3" />}
+        <path d={worn
+          ? 'M48 27h30c9 0 9 6.5 0 9L49 45c-9 2.5-9 9 0 9h29c9 0 9 6.5 0 9L49 72c-9 2.5-9 9 0 9h30'
+          : 'M48 17h30c9 0 9 8 0 11L49 38c-9 3-9 11 0 11h29c9 0 9 8 0 11L49 70c-9 3-9 11 0 11h30'} />
+        <path d={worn
+          ? 'M48 27c-9 0-9 6.5 0 9l31 9c9 2.5 9 9 0 9H49c-9 0-9 6.5 0 9l30 9c9 2.5 9 9 0 9'
+          : 'M48 17c-9 0-9 8 0 11l31 10c9 3 9 11 0 11H49c-9 0-9 8 0 11l30 10c9 3 9 11 0 11'} strokeOpacity=".35" />
+        <path d={worn ? 'M48 36h30M49 72h30' : 'M48 28h30M49 70h30'} strokeOpacity=".2" />
       </>;
     case 'tire':
       return <>
         <circle cx="65" cy="48" r="35" fill="var(--part-fill)" /><circle cx="65" cy="48" r="26" /><circle cx="65" cy="48" r="20" strokeOpacity=".45" />
         {[0, 72, 144, 216, 288].map(angle => <path key={angle} d="M62 41 57 31h9l2 9" transform={`rotate(${angle} 65 48)`} fill="var(--part-fill)" />)}
         <circle cx="65" cy="48" r="7" />
-        {Array.from({ length: 16 }, (_, index) => <path key={index} d="M62 14l3 4" transform={`rotate(${index * 22.5} 65 48)`} strokeWidth="1.4" strokeOpacity=".5" />)}
+        {Array.from({ length: 16 }, (_, index) => <path key={index} d={worn ? (index % 4 === 0 ? 'M63 14l1 1.4' : 'M62.6 14l1.6 2.1') : 'M62 14l3 4'} transform={`rotate(${index * 22.5} 65 48)`} strokeWidth="1.4" strokeOpacity={worn ? .34 : .5} />)}
       </>;
     case 'battery':
       return <>
@@ -175,10 +192,10 @@ function PartShape({ id }: { id: string }): ReactNode {
   }
 }
 
-export default function PartSketch({ system, partId }: PartSketchProps) {
+export default function PartSketch({ system, partId, variant = 'normal' }: PartSketchProps) {
   return <svg viewBox="0 0 130 95" fill="none" aria-hidden="true">
     <g stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <PartShape id={partId ?? primaryPart[system]} />
+      <PartShape id={partId ?? primaryPart[system]} variant={variant} />
     </g>
   </svg>;
 }

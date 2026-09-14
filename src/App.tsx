@@ -45,11 +45,13 @@ function Brand({ compact = false }: { compact?: boolean }) {
 
 function PartDetail({ part, learned, onLearn, onMechanism }: { part: Part; learned: boolean; onLearn: () => void; onMechanism: (() => void) | null }) {
   const [tab, setTab] = useState<'about' | 'care'>('about');
+  const [wearView, setWearView] = useState<'normal' | 'worn'>('normal');
   const tabs = useRef<HTMLDivElement>(null);
-  useEffect(() => setTab('about'), [part.id]);
+  useEffect(() => { setTab('about'); setWearView('normal'); }, [part.id]);
   const category = systems.find(system => system.id === part.system)!;
   return <aside className="part-detail" aria-label={`Sobre ${part.name}`}>
-    <div className={`part-illustration system-${part.system}`}><span className="detail-system"><span className="system-dot"/>{category.name}</span><PartSketch system={part.system} partId={part.id}/><span className="part-level">{part.difficulty}</span></div>
+    <div className={`part-illustration system-${part.system}`}><span className="detail-system"><span className="system-dot"/>{category.name}</span><PartSketch system={part.system} partId={part.id} variant={part.wear?wearView:'normal'}/><span className="part-level">{part.difficulty}</span></div>
+    {part.wear&&<div className="wear-compare"><div className="wear-toggle" role="group" aria-label={`Comparar a ${part.shortName.toLowerCase()} em bom estado e com uso`}><button aria-pressed={wearView==='normal'} onClick={()=>setWearView('normal')}>Em bom estado</button><button aria-pressed={wearView==='worn'} onClick={()=>setWearView('worn')}>Com uso</button></div><p className="wear-copy" aria-live="polite">{wearView==='normal'?part.wear.normal:part.wear.worn}</p><p className="wear-note"><ShieldCheck size={14}/>{part.wear.note}</p></div>}
     <div className="detail-body">
       <button className="back-to-model text-link" onClick={()=>{document.querySelector('.atlas-panel')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});document.querySelector<HTMLElement>('.atlas-panel')?.focus({preventScroll:true});}}>Voltar ao modelo <Box size={14}/></button>
       <h2 tabIndex={-1}>{part.name}</h2><p className="part-summary">{part.summary}</p>

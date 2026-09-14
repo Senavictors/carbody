@@ -1,7 +1,7 @@
 ---
 estado: real
 fonte: src/App.tsx, src/components/, src/data/parts.ts
-ultima-revisao: TASK-013, 2026-09-13
+ultima-revisao: TASK-015, 2026-09-13
 ---
 
 # Componentes
@@ -19,7 +19,7 @@ Componentes internos relevantes por camada. Carbody não tem camadas de backend/
 ## Camada de visualização — laboratório de mecanismos
 
 - **`MechanismLab.tsx`** (`src/components/`) — diagramas SVG animados (motor de 4 tempos, par de engrenagens, circuito hidráulico de freio, circuito de arrefecimento, conjunto de suspensão, sistema de carga elétrica), animação via `requestAnimationFrame` respeitando `prefers-reduced-motion`.
-- **`PartSketch.tsx`** (`src/components/`) — ilustrações SVG por sistema, usadas na biblioteca de peças e nos detalhes de cada peça.
+- **`PartSketch.tsx`** (`src/components/`) — ilustrações SVG por sistema, usadas na biblioteca de peças e nos detalhes de cada peça Desde o `ADR-007`/`TASK-015` aceita `variant?: 'normal' | 'worn'`: as 5 peças com `wear` no catálogo têm uma segunda versão do mesmo desenho, alterando só o traço que representa o desgaste (sulcos mais rasos no pneu, camada de atrito mais fina na pastilha, sulcos circulares no disco, folga maior entre os eletrodos da vela, mola mais baixa). As outras 29 ignoram o prop e caem no desenho único.
 
 ## Camada de dados/conteúdo
 
